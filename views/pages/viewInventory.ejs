@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Shopping Cart Page</title>
+    <% include ../common/meta-header.ejs %>
+  </head>
+  <body>
+     <div class='center-focused jumbotron'>
+        <label class='header'>View all Invetory</label>
+        <table class='display-table'><% for(var i=0;i<data.list.length;i++){ %>
+          <tr>
+            <td>
+              <div class='item-icon'>
+                <img src='./upload/<%= data.list[i].image %>' />
+                <label>Item: <%= data.list[i].item %></label><br />
+                <label>Price: <%= data.list[i].price %></label>
+              </div>
+              <div class="clearfix-alt"></div>
+            </td>
+          </tr>
+        <% } %></table>
+        
+        <p>All images taken from <a href="https://game-icons.net/">game-icons.net</a><br />
+          <a href='/addInvetory'>Add Item</a> | <a href='/home'>Back</a> </p>
+    </div>
+     <% include ../common/body-footer %>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Shopping Cart Page</title>
+    <% include ../common/meta-header.ejs %>
+  </head>
+  <body>
+     <div class='center-focused jumbotron'>
+        <label class='header'>View all Products that can be added</label>
+        <form name='trans-form' action='system-processing/addtrans-result' method='post'>
+        <table class='display-table'><% for(var i=0;i<data.list.length;i++){ %>
+          <tr>
+            <td class='item-icon'>
+              <img src='./upload/<%= data.list[i].image %>' />
+              <label>Item: <%= data.list[i].item %></label><br />
+              <label>Price: <%= data.list[i].price %></label>
+            </td>
+            <td class='item-label'>
+              <label>Quantity</label>
+              <input type='text' name='<%= data.list[i]._id %>' />
+            </td>
+          </tr>
+        <% } %>
+            <tr><td><input type='submit' value='Add Transacton' /></td></tr>
+        </table>
+        </form>
+        
+        <p>All images taken from <a href="https://game-icons.net/">game-icons.net</a><br />
+          <a href='/addInvetory'>Add Item</a></p>
+    </div>
+     <% include ../common/body-footer %>
+  </body>
+</html>

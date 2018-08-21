@@ -1,0 +1,68 @@
+.center-focused{
+    width: 80%;
+    padding: 40px 10%;
+    margin: 40px 10%;
+    text-align: center;
+}
+
+.center-focused img{
+    border-radius: 25px;
+}
+
+.center-focused input.btn{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.center-focused .header{
+  background: #BBBBBB;
+  padding: 5px 30px;
+  border-radius: 25px;
+  font-size: 25px;
+}
+
+.clearfix{
+		overflow: auto;
+	}
+
+.hide-prompt{
+    display: none;
+}
+
+.display-table{
+  width: 100%;
+}
+
+.display-table td{
+  width: 50%;
+  padding-bottom: 5px;
+}
+
+.item-icon img{
+  max-width: 50px;
+  border-radius: 0px;
+  float: left;
+}
+
+.item-icon label{
+    margin-left: 10px;
+    margin-bottom: 0px;
+    font-size: 20px;
+    float: none;
+}
+
+.item-label label{
+    margin: 0px 0px;
+    font-size: 20px;
+}
+
+.transaction-label{
+  text-align: left;
+  font-size: 23px;
+}
+
+.transaction-total{
+  text-align: left;
+  font-size: 20px;
+  color: gray;
+}

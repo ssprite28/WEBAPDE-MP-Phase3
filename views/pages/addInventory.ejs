@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Add To Inventory</title>
+    <% include ../common/meta-header.ejs %>
+  </head>
+  <body>
+     <div class='center-focused jumbotron'>
+        <h6>Create an Inventory Item</h6>
+        <form name='add-invetory' action='system-processing/addinvetory-result'
+            method='post' enctype="multipart/form-data">
+          <label>Item</label><br />
+          <input type='text' name='item'></input><br />
+          <label>Image</label><br />
+          <input type='file' name='image'></input><br />
+          <label>Price</label><br />
+          <input type='text' name='price'></input><br />
+          <br />
+          <input type='submit' class='btn btn-primary' value='Add'></input>
+        </form>
+    </div>
+     <% include ../common/body-footer %>
+  </body>
+</html>

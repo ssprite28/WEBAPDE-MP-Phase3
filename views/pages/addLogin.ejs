@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Add Login</title>
+    <% include ../common/meta-header.ejs %>
+  </head>
+  <body>
+     <div class='center-focused jumbotron'>
+        <h6>Create a login account</h6>
+        <form name='login-form' action='system-processing/addlogin-result' method='post'>
+          <label>username</label><br />
+          <input type='text' name='user'></input><br />
+          <label>password</label><br />
+          <input type='password' name='pass'></input><br />
+          <br />
+          <input type='submit' class='btn btn-primary' value='Sign in'></input>
+        </form>
+    </div>
+     <% include ../common/body-footer %>
+  </body>
+</html>

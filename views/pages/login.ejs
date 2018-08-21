@@ -1,0 +1,30 @@
+<%
+  var failedLoginClass;
+  if(data.failedLogin)
+    failedLoginClass = 'alert alert-danger';
+  else
+    failedLoginClass = 'hide-prompt alert alert-danger';
+%>
+<html>
+  <head>
+    <title>First Page</title>
+    <% include ../common/meta-header.ejs %>
+  </head>
+  <body>
+     <div class='center-focused jumbotron'>
+        <img src='./imgs/Login-Splash.png'></img>
+        <div id='empty-prompt' class='hide-prompt alert alert-danger'>Both fields must be filled</div>
+        <div id='incorrect-prompt' class='<%= failedLoginClass %>'>Email or Password is incorrect</div>
+        <form name='login-form' action='system-processing/login-authentication' onsubmit="return checkLogIn()" method='post'>
+        <label>username</label><br />
+        <input type='text' name='user'></input><br />
+        <label>password</label><br />
+        <input type='password' name='pass'></input><br />
+        <br />
+        <input type='submit' class='btn btn-primary' value='Sign in'></input>
+        </form>
+        <a href='addLogin'>Add New User</a>
+    </div>
+     <% include ../common/body-footer %>
+  </body>
+</html>

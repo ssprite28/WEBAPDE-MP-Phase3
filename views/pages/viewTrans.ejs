@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Shopping Cart Page</title>
+    <% include ../common/meta-header.ejs %>
+  </head>
+  <body>
+     <div class='center-focused jumbotron'>
+        <label class='header'>View all Transactions</label>
+        <% var total = 0; %>
+        <% for(var i=0;i<data.list.length;i++){ %>
+          <% var localTotal = 0; %>
+          <hr />
+            <div class='transaction-label'>Transaction: <%= data.list[i]._id %></div>
+            <table class='display-table'>
+            <% for(var j=0;j<data.list[i].items.length;j++){ %>
+            <tr><% var itemTotal = data.list[i].qtys[j] * data.list[i].itemNames[j].price;  %>
+              <td>
+                <div class='item-icon'>
+                  <img src='./upload/<%= data.list[i].itemNames[j].image %>' />
+                  <label>Item: <%= data.list[i].itemNames[j].item %></label><br />
+                  <label>Price: <%= data.list[i].itemNames[j].price %></label>
+                </div>
+                <div class="clearfix-alt"></div>
+              </td>
+              <td>
+                  <div class='item-label'>
+                    <label>Quantity: <%= data.list[i].qtys[j] %></label><br />
+                    <label>Sub-total: <%= itemTotal %></label>
+                  </div>
+              </td>
+          </tr>
+            <% localTotal += itemTotal; } %></table>
+        <div class='transaction-total'>Transaction Total: <%= localTotal %></div>
+        <% total += localTotal; } %>
+        <hr />
+        <label class='header'>Overall Spending: <%= total %></label>
+        <hr />
+        <p>All images taken from <a href="https://game-icons.net/">game-icons.net</a><br />
+          <a href='/viewInvetory'>View Invetory Item</a> |
+          <a href='/addTransactions'>Add Transaction</a> |
+          <a href='/'>Log Out</a></p>
+    </div>
+     <% include ../common/body-footer %>
+  </body>
+</html>

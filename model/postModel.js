@@ -17,23 +17,24 @@ const postSchema = new mongoose.Schema({
 
 const postModel = mongoose.model('post', postSchema);
 
-//function viewTransactions(username, callback){
-//  //Aggregate is the closest thing in Mongo to Join in SQL
-//  transModel.aggregate([
-//   { '$match': { userID:'temp' } },{
-//    $lookup: {
-//           from: "inventories",
-//           localField: "items",
-//           foreignField: "_id",
-//           as: "itemNames" }
-//    }
-//  ]).exec(function (err, list) {
-//    if(err) return console.error(err);
-//    callback(list);
-//  });
-//}
+function viewPosts(username, callback){
+  //Aggregate is the closest thing in Mongo to Join in SQL
+  postModel.aggregate([
+   { '$match': { userID:'temp' } },{
+    $lookup: {
+           from: "posts",
+           localField: "items",
+           foreignField: "_id",
+           as: "itemNames" }
+    }
+  ]).exec(function (err, list) {
+    if(err) return console.error(err);
+    callback(list);
+  });
+    
+}
 
-//module.exports.viewTransactions = viewTransactions;
+module.exports.viewPosts = viewPosts;
 //
 //function addTransaction(id, itemList, qtyList, callback){
 //  const instance = transModel({

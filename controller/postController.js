@@ -3,12 +3,12 @@ const postModel = require('../model/postModel');
 
 function PostModule(server){
   
-//  server.get('/home', function(req, resp){
-//    transModel.viewTransactions('temp',function(list){
-//      const data = { list:list };
-//      resp.render('./pages/viewTrans',{ data:data });
-//    });
-//  });
+  server.get('/home', function(req, resp){
+    postModel.viewPosts('temp',function(list){
+      const data = { list:list };
+      resp.render('./pages/home',{ data:data });
+    });
+  });
 //
 //  server.get('/addTransactions', function(req, resp){
 //    invetoryModel.viewInvetory(function(list){

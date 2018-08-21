@@ -11,7 +11,7 @@ const tagSchema = new mongoose.Schema({
     parentPostID: {type: String },
 },{ versionKey: false });
 
-const tagModel = mongoose.model('tag', inventorySchema);
+const tagModel = mongoose.model('tag', tagSchema);
 
 //function addInvetory(itemV, imageV, priceV, callback){
 //  const instance = inventoryModel({ item: itemV, image: imageV, price: priceV });

@@ -1,5 +1,5 @@
 const postModel = require('../model/postModel');
-const invetoryModel = require('../model/invetoryModel');
+//const invetoryModel = require('../model/invetoryModel');
 
 function PostModule(server){
   

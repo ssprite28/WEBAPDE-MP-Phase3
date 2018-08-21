@@ -6,7 +6,9 @@ const mongoose = require('./connectionBase').connection;
 
 const loginSchema = new mongoose.Schema({
   user: { type: String },
-  pass: { type: String }
+  pass: { type: String },
+  picture: { type: String },
+    
 },{ versionKey: false });
 
 const loginModel = mongoose.model('login', loginSchema);

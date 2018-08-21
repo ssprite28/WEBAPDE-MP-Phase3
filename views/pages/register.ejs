@@ -51,9 +51,11 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>dankmems: Login</title>
-<!--<link rel="stylesheet" href="./styles/Login.css">-->
-<!--<script src="Login.js"></script>-->
+<title>dankmems: Register</title>
+<!--
+<link rel="stylesheet" href="Register.css">
+<script src="Register.js"></script>
+-->
 <style>
     .header{
     background-color: black;
@@ -124,6 +126,16 @@ html,body{
     cursor: pointer;
 }
 
+.required{
+    color: red;
+    font-style: italic;
+}
+
+
+.optional{
+    font-style:italic;
+    color: gray;
+}
 
 .login{
     color:white;
@@ -142,24 +154,7 @@ html,body{
     color: gainsboro;
 }
 
-input[type=submit]{
-    width:10%;
-}
-
-a{
-    text-decoration: none;
-}
-
-.loginbtn{
-    color:black;
-}
-
-    
 </style>
-<script>
-function myFunction() {
-    alert("Login Successful!");
-}</script>
 </head>
 <body>
 <div class="container">
@@ -167,29 +162,30 @@ function myFunction() {
     <nav class="nav">
         <span><a href="/" class="home">dankmems</a></span>
         <span><a href="/login" class="login">Log in</a></span>
-        <span><a href="/register" class="register">Register</a></span>
+        <span><a href="/register" class="register" >Register</a></span>
     </nav>
 </div>
-
+</div>
 <div class="main">
-<h2>Login</h2>
-<form name="read-user" method="post" action="read-user">
-<label>Username:</label>
-    <input type="text" name="user"/>
-<br/>
-<br/>
+<h2>Register</h2>
+<form name="create-user" action="create-user" method="post">
+        <label>Username:</label>
+        <input type="text" name="user"/>
+        <label class="required">*Required</label>
+        <br/>
+        <br/>
 <label>Password:</label>
     <input type="password" name="pass"/>
+<label class="required">*Required</label>
+    <br/>
+    <br/>
+<label>Short description about yourself:</label>
+    <input type="text" name="description"/>
+<label class="optional">**Optional</label>
 <br/>
 <br/>
-<!--    <button><a href="User_Home.html" class="loginbtn">Log in</a></button>-->
-    <input type="submit" onclick="myFunction()" value="Login"/>
-<br/>
-<br/>
-<label>Don't have an account yet?</label>
-    <a href="/register">Register now!</a>
+    <input type="submit" value="Register"/>
 </form>
-</div>
 </div>
 </body>
 </html>

@@ -1,4 +1,7 @@
 const loginModel = require('../model/loginModel');
+var crypto = require('crypto');
+var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
+
 
 function LoginModule(server){
   
@@ -10,7 +13,7 @@ function LoginModule(server){
   });
 
   server.get('/addLogin', function(req, resp){
-    resp.render('./pages/addLogin');
+    resp.render('./pages/login');
   });
 
   server.post('/system-processing/addlogin-result', function(req, resp){

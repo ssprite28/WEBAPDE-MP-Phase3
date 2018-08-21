@@ -13,7 +13,7 @@ server.set('view engine', 'ejs');
 
 server.use(express.static(__dirname + '/public'));
 
-const controllers = ['login','invetory','transaction'];
+const controllers = ['login','post','tag'];
 for(var i=0;i<controllers.length;i++){
   const mdl = require('./controller/'+controllers[i]+'Controller');
   mdl.Activate(server);

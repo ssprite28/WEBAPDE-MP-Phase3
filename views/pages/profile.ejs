@@ -166,19 +166,19 @@ label{
 <div class="container">
 <div class="header">
     <nav class="nav">
-        <span><a href="/home-user" class="home">dankmems</a></span>
-        <span><a href="/home-user" class="trend">on firee</a></span>
+        <span><a href="/home" class="home">dankmems</a></span>
+        <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
-        <span><a href="/home" class="logout">Log out</a></span>
+        <span><a href="/logout" class="logout">Log out</a></span>
         <span><a href="/profile" class="register">Profile</a></span>
     </nav>
 </div>
 <div class="main">
 <div class="info">
-<div class="img"> <img class = 'profile' src='/images/Ohno.jpg'></div>
-    <span class="name"><h1>'Cyanide'</h1><button>Edit Profile</button></span>
+<div class="img"> <img class = 'profile' src= <%= data.list.picture %> ></div>
+    <span class="name"><h1><%= data.list.user %></h1><button>Edit Profile</button></span>
         <h3>Short description:</h3>
-            <p class="description">111</p><br/>
+            <p class="description"><%= data.list.description %></p><br/>
 <div class="uploadmeme">
     <p><button><a href='/create-post'>Create Post</a></button></p>
     

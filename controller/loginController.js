@@ -23,15 +23,25 @@ function LoginModule(server){
       resp.redirect('/');
     });
   });
+    
+  server.get('/profile', function(req, resp){
+      loginModel.findUser(req.session.user, function(list){
+         const data = {list:list}
+         resp.render('./pages/profile', {data: data}); 
+      }); 
+  });
+
 
     
   server.post('/system-processing/login-authentication', function(req, resp){
     loginModel.checkLogin(req.body.user,req.body.pass,function(result){
       if(result) {
-        resp.redirect('/home');
+
         req.session.user = req.body.user; 
         console.log(req.session);
         console.log(req.session.user);
+          
+        resp.redirect('/home');
       }
       else
         resp.redirect('/?login=failed');
@@ -43,7 +53,7 @@ server.get('/logout', function(req, resp){
     resp.redirect('/?login=unlogged');
   }else{
     req.session.destroy(function(err) {
-      resp.render('/home');
+      resp.redirect('/home');
     });
   }
 });

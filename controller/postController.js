@@ -6,9 +6,16 @@ function PostModule(server){
   server.get('/home', function(req, resp){
     postModel.viewPosts('temp',function(list){
       const data = { list:list };
-      resp.render('./pages/home',{ data:data });
+        
+      if (req.session.user === undefined)
+          resp.render('./pages/home', {data:data});
+          
+      else
+          resp.render('./pages/home-user',{ data:data });
     });
   });
+    
+
     
 //
 //  server.get('/addTransactions', function(req, resp){

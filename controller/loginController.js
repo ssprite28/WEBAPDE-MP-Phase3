@@ -16,10 +16,12 @@ function LoginModule(server){
   server.get('/register', function(req, resp){
     resp.render('./pages/register');
   });
+    
 
     
   server.post('/system-processing/register-result', function(req, resp){
-    loginModel.register(req.body.user,req.body.pass,function(){
+    var date = new Date();
+    loginModel.register(req.body.user, req.body.pass, date, req.body.description, function(){
       resp.redirect('/');
     });
   });
@@ -28,6 +30,14 @@ function LoginModule(server){
       loginModel.findUser(req.session.user, function(list){
          const data = {list:list}
          resp.render('./pages/profile', {data: data}); 
+      }); 
+  });
+    
+   //Placeholder
+   server.get('/edit-profile', function(req, resp){
+      loginModel.findUser(req.session.user, function(list){
+         const data = {list:list}
+         resp.render('./pages/edit-profile', {data: data}); 
       }); 
   });
 

@@ -28,9 +28,9 @@ function PostModule(server){
     
     
   //For showing the create-post page      
-  server.get('/create-post'), function(req, resp){
+  server.get('/create-post', function(req, resp){
       resp.render('./pages/createpost');
-  }    
+  });    
     
   server.post('/system-processing/createpost-result', function(req, resp){
 //    var IDList = [];
@@ -58,13 +58,7 @@ function PostModule(server){
 //        resp.redirect('/home');
 //    });
       
-      postModel.createPost(
-          req.body.title, 
-          allTags, 
-          req.body.picture, 
-          new Date(), 
-          req.body.privacy, 
-          allShared, 
+      postModel.createPost(req.body.title, allTags, req.body.picture, new Date(), req.body.privacy, allShared, 
           
           function(list){
             const data = {list: list};

@@ -9,6 +9,7 @@ const loginSchema = new mongoose.Schema({
   pass: { type: String },
   picture: { type: String },
   description: { type: String },
+  dateRegistered: {type: String },
     
 },{ versionKey: false });
 
@@ -25,8 +26,8 @@ function checkLogin(username, password, callback){
 
 module.exports.checkLogin = checkLogin;
 
-function register(username, password, callback){
-  const instance = loginModel({ user: username, pass: password, picture: './imgs/Login-Splash.png' });
+function register(username, password, date, description, callback){
+  const instance = loginModel({ user: username, pass: password, picture: './imgs/Blank.png', dateRegistered: date, description: description });
     
   instance.save(function (err, login) {
     if(err) return console.error(err);

@@ -5,6 +5,23 @@
 const express = require('express');
 const server = express();
 
+
+const session = require('express-session');
+const mongoStore = require('connect-mongo')(session);
+
+const mongoose = require('./model/connectionBase');
+
+server.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+//    store: new mongoStore({
+//      mongooseConnection: mongoose.connect,
+//      ttl: 2 * 24 * 60 * 60,
+//      autoRemove: 'native'
+//    })
+}));
+
 const bodyParser = require('body-parser')
 server.use(express.json()); 
 server.use(express.urlencoded({ extended: true }));

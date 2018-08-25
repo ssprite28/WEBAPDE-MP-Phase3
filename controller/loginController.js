@@ -27,12 +27,30 @@ function LoginModule(server){
     
   server.post('/system-processing/login-authentication', function(req, resp){
     loginModel.checkLogin(req.body.user,req.body.pass,function(result){
-      if(result)
+      if(result) {
         resp.redirect('/home');
+        req.session.user = req.body.user; 
+        console.log(req.session);
+        console.log(req.session.user);
+      }
       else
         resp.redirect('/?login=failed');
     });
   });
+    
+  server.post('/logout', function(req, resp)){
+    if (req.session.user === undefined)
+        req.session.destroy(function (err){
+            resp.render('./pages/login');
+            console.log(req.session.user + "has been sucessfully logged out!");
+        })
+        
+    else 
+        
+  }
+    
+  
+    
 }
 
 module.exports.Activate = LoginModule;

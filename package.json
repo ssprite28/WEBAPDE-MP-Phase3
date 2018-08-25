@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/ssprite28/dankmems-Phase3#readme",
   "dependencies": {
+    "connect-mongo": "^2.0.1",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "formidable": "^1.2.1",
     "mongoose": "^5.2.9"
   }

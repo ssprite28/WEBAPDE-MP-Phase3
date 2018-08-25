@@ -18,21 +18,52 @@ function PostModule(server){
 //    });
 //  });
 //
-  server.post('/system-processing/addpost-result', function(req, resp){
-    var IDList = [];
-    var qtyList = [];
-    var total = 0;
-    for(var key in req.body){
-        var val = Number(req.body[key]);
-        if(!isNaN(val) && req.body[key].length>0){
-            IDList.push(key);
-            qtyList.push(val);
-        }//end if
-    }//end for
-    postModel.addTransaction(
-    'temp',IDList,qtyList,function(){
-        resp.redirect('/home');
-    });
+    
+    
+  //For showing the create-post page      
+  server.get('/create-post'), function(req, resp){
+      resp.render('./pages/createpost');
+  }    
+    
+  server.post('/system-processing/createpost-result', function(req, resp){
+//    var IDList = [];
+//    var qtyList = [];
+//    var total = 0;
+      
+      var Tags = req.body.tags;
+      var allTags = Tags.split(',');
+      
+      var Shared = req.body.shareuser;
+      var allShared = Shared.split(',');
+          
+//    for(var key in req.body){
+//        var val = Number(req.body[key]);
+//        
+//        if(!isNaN(val) && req.body[key].length>0){
+//            IDList.push(key);
+//            qtyList.push(val);
+//        }//end of if statement
+//        
+//    }//end of for loop
+            
+//    postModel.addTransaction(
+//    'temp',IDList,qtyList,function(){
+//        resp.redirect('/home');
+//    });
+      
+      postModel.createPost(
+          req.body.title, 
+          allTags, 
+          req.body.picture, 
+          new Date(), 
+          req.body.privacy, 
+          allShared, 
+          
+          function(list){
+            const data = {list: list};
+            resp.redirect('/home');               
+      });
+      
   });
 }
 

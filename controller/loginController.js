@@ -38,16 +38,15 @@ function LoginModule(server){
     });
   });
     
-  server.post('/logout', function(req, resp)){
-    if (req.session.user === undefined)
-        req.session.destroy(function (err){
-            resp.render('./pages/login');
-            console.log(req.session.user + "has been sucessfully logged out!");
-        })
-        
-    else 
-        
+server.get('/logout', function(req, resp){
+  if(req.session.user === undefined){
+    resp.redirect('/?login=unlogged');
+  }else{
+    req.session.destroy(function(err) {
+      resp.render('/home');
+    });
   }
+});
     
   
     

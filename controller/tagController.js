@@ -3,12 +3,14 @@ const formidable = require('formidable');
 const fs = require('fs');
 
 function TagModule(server){
-//  server.get('/viewInvetory', function(req, resp){
-//    invetoryModel.viewInvetory(function(list){
-//      const data = { list:list };
-//      resp.render('./pages/viewInventory',{ data:data });
-//    });
-//  });
+    
+  server.get('/tags', function(req, resp){
+    tagModel.viewTags(function(list){
+      const data = { list:list };
+      resp.render('./pages/tags',{ data:data });
+    });
+  });
+    
 //  server.get('/addInvetory', function(req, resp){
 //    resp.render('./pages/addInventory');
 //  });

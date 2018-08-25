@@ -35,17 +35,23 @@ function viewPosts(username, callback){
 }
 
 module.exports.viewPosts = viewPosts;
-//
-//function addTransaction(id, itemList, qtyList, callback){
-//  const instance = transModel({
-//      userID: id,
-//      items: itemList,
-//      qtys: qtyList });
-//  
-//  instance.save(function (err, trans) {
-//    if(err) return console.error(err);
-//    callback();
-//  });
-//}
+
+function createPost(id, title, tagsList, picture, timestamp, privacy, shareuserList, callback){
+  const instance = postModel({
+      userID: id,
+      title: title,
+      tags: tagsList,
+      picture: picture,
+      timestamp: timestamp,
+      privacy: privacy,
+      shareuser: shareuserList,
+      
+    });
+  
+  instance.save(function (err, trans) {
+    if(err) return console.error(err);
+    callback();
+  });
+}
 //
 //module.exports.addTransaction = addTransaction;

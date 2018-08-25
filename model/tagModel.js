@@ -24,12 +24,12 @@ const tagModel = mongoose.model('tag', tagSchema);
 
 //module.exports.addInvetory = addInvetory;
 
-//function viewInvetory(callback){
-//  inventoryModel.find({}, function (err, list) {
-//    if(err) return console.error(err);
-//    callback(list);
-//  });
-//}
+function viewTags(callback){
+  tagModel.find({}, function (err, list) {
+    if(err) return console.error(err);
+    callback(list);
+  });
+}
 
-//module.exports.viewInvetory = viewInvetory;
+module.exports.viewTags = viewTags;
 

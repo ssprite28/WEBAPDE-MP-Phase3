@@ -24,14 +24,14 @@ function checkLogin(username, password, callback){
 
 module.exports.checkLogin = checkLogin;
 
-function addLogin(username, password, callback){
+function register(username, password, callback){
   const instance = loginModel({ user: username, pass: password });
-  
+    
   instance.save(function (err, login) {
     if(err) return console.error(err);
     callback();
   });
 }
 
-module.exports.addLogin = addLogin;
+module.exports.register = register;
 

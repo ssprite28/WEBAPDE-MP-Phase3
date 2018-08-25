@@ -12,16 +12,19 @@ function LoginModule(server){
     resp.render('./pages/login',{data:data});
   });
 
+    
   server.get('/register', function(req, resp){
     resp.render('./pages/register');
   });
 
+    
   server.post('/system-processing/register-result', function(req, resp){
     loginModel.register(req.body.user,req.body.pass,function(){
       resp.redirect('/');
     });
   });
 
+    
   server.post('/system-processing/login-authentication', function(req, resp){
     loginModel.checkLogin(req.body.user,req.body.pass,function(result){
       if(result)

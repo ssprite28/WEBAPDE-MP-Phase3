@@ -13,7 +13,7 @@
 html,body {
     font: Helvetica Nueue;
     font-family: sans-serif;
-    background-color: #E6ECF0;
+    background-color: #00004d;
     height: 100%;
     width: 100%;
 }
@@ -70,7 +70,7 @@ img{
 
 .main{
     background-color: white;
-    width: 1000px;
+    width: 900px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -204,6 +204,19 @@ footer h3 {
   margin-bottom: 0;
 }
     
+.bottombuttons {
+  margin-left: 30px;      
+}
+
+.lastbutton {
+  margin-left: 30px;
+  margin-right: 25px;
+}
+    
+.likes {
+  font-size: 12px;      
+}
+    
 .pink{color: pink;}
 .red{color: red;}
 .orange{color: orange;}
@@ -234,6 +247,7 @@ footer h3 {
             tags: data.list[i].tags,
             uploadedBy: data.list[i].uploadedBy,
             timestamp: data.list[i].timestamp,
+            likes: data.list[i].likes,
       }); %>
         <% for(var j=0;j<data.list[i].tags.length;j++) { %>
             <%- include('./tags-row', {

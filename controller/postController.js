@@ -22,8 +22,7 @@ function PostModule(server){
     
     server.post('/search-tags', function(req, resp){
         postModel.viewPosts(req.session.user, function(list){
-//            const data = {list: list};
-            
+
             console.log("Search Bar: " + req.body.searchbar);
             var search = req.body.searchbar;
             
@@ -56,16 +55,13 @@ function PostModule(server){
        });
     });
     
-
+    server.post('/delete-post', function(req, resp){
+        var search = req.query.id;
+        postModel.deletePost(search) 
+            resp.redirect('/profile'); 
+        
+    });
     
-//
-//  server.get('/addTransactions', function(req, resp){
-//    invetoryModel.viewInvetory(function(list){
-//      const data = { list:list };
-//      resp.render('./pages/addTrans',{ data:data });
-//    });
-//  });
-//
     
     
   //For showing the create-post page      
@@ -76,12 +72,7 @@ function PostModule(server){
  
     
   server.post('/system-processing/createpost-result', function(req, resp){
-//    var IDList = [];
-//    var qtyList = [];
-//    var total = 0;
-      
 
-      
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
           var oldpath = files.picture.path;
@@ -112,23 +103,6 @@ function PostModule(server){
               
           });//rename
       });//parse
-          
-//    for(var key in req.body){
-//        var val = Number(req.body[key]);
-//        
-//        if(!isNaN(val) && req.body[key].length>0){
-//            IDList.push(key);
-//            qtyList.push(val);
-//        }//end of if statement
-//        
-//    }//end of for loop
-            
-//    postModel.addTransaction(
-//    'temp',IDList,qtyList,function(){
-//        resp.redirect('/home');
-//    });
-      
-     
       
   });
 }

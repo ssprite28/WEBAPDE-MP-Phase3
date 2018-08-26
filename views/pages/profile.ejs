@@ -169,6 +169,11 @@ label{
 .buttons {
         
 }
+    
+img {
+    max-width:400px;
+    max-height: 400px;
+}
 
 <% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
 
@@ -205,6 +210,7 @@ label{
 
 <h3>Short description:</h3>
     <p class="description"><%= data.description %></p><br/>
+<h3>Your Posts</h3>
     <% for(var i=0;i<postData.length;i++){ %>
        <% if (postData[i].uploadedBy === data.list.user){%>
          <%- include('./post', {
@@ -213,6 +219,7 @@ label{
             tags: postData[i].tags,
             uploadedBy: postData[i].uploadedBy,
             timestamp: postData[i].timestamp,
+            likes: postData[i].likes,
       }); %>
         <% for(var j=0;j<postData[i].tags.length;j++) { %>
             <%- include('./tags-row', {
@@ -220,7 +227,9 @@ label{
         }); %>
     
         <% } %>
-        <input type='submit' value='Delete Post'>
+        <form action='/delete-post' method='post'>
+            <input id='<%=postData[i]._id%>' type='submit' value='Delete Post'>
+        </form>
     
     </div>
         <% } %>

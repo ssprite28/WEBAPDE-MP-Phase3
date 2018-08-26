@@ -31,18 +31,14 @@ function viewPosts(username, callback){
     
 }
 
-
-
-//function viewPosts(username, callback){
-//    
-//    postModel.find({}, function(err, list){
-//    const passData = {list:list};
-//                   
-//    });
-//    callback(list);
-//}
-
 module.exports.viewPosts = viewPosts;
+
+function deletePost(id){
+    postModel.deleteOne({ _id: id }, function (err) {});
+
+}
+
+module.exports.deletePost = deletePost;
 
 function createPost(user, title, tagsList, picture, timestamp, privacy, shareuserList, callback){
   const postInstance = postModel({
@@ -50,6 +46,8 @@ function createPost(user, title, tagsList, picture, timestamp, privacy, shareuse
       title: title,
       tags: tagsList,
       picture: picture,
+      comments: undefined,
+      likes: 0,
       timestamp: timestamp,
       privacy: privacy,
       shareuser: shareuserList,

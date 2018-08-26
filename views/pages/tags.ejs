@@ -166,12 +166,12 @@ a{
 <script>
 function searchTag(){
     var searchTag = document.getElementById("searchbar").value;
-    <% for(var j=0;j<data.tag.length;j++) { %>
+    <% for(var j=0;j<data.list.length;j++) { %>
             var tag="";
-            tag = data.tag[j].body;
+            tag = data.list[j].body;
             if(searchTag.toUpperCase() == tag.toUpperCase())
             <%- include('./tags-row', {
-                tag: data.tag[j].body,
+                tag: data.list[j].body,
         }); %>
          <% } %>
 }
@@ -182,8 +182,8 @@ function searchTag(){
 <div class="container">
 <div class="header">
     <nav class="nav">
-        <span><a href="/" class="home">dankmems</a></span>
-        <span><a href="/" class="trend">on firee</a></span>
+        <span><a href="/home" class="home">dankmems</a></span>
+        <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
         <span><a href="/login" class="login">Log in</a></span>
         <span><a href="/register" class="register" >Register</a></span>
@@ -199,9 +199,9 @@ function searchTag(){
     </div>
     <div>
         <label>All Tags:</label>
-        <% for(var j=0;j<data.tag.length;j++) { %>
+        <% for(var j=0;j<data.list.length;j++) { %>
             <%- include('./tags-row', {
-                tag: data.tag[j].body,
+                tag: data.list[j].body,
         }); %>
          <% } %>
     </div>

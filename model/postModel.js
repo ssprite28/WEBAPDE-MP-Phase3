@@ -16,7 +16,7 @@ const postModel = mongoose.model('post', postSchema);
 function viewPosts(username, callback){
   //Aggregate is the closest thing in Mongo to Join in SQL
   postModel.aggregate([
-   { '$match': { userID:'temp' } },{
+   {
     $lookup: {
            from: "posts",
            localField: "items",
@@ -29,6 +29,15 @@ function viewPosts(username, callback){
   });
     
 }
+
+//function viewPosts(username, callback){
+//    
+//    postModel.find({}, function(err, list){
+//    const passData = {list:list};
+//                   
+//    });
+//    callback(list);
+//}
 
 module.exports.viewPosts = viewPosts;
 

@@ -15,6 +15,19 @@ function PostModule(server){
     });
   });
     
+//    server.get('/home', function(req, resp){
+//        postModel.viewPosts(req.session.user, function(list){
+//            const data = {list: list};
+//            
+//            if (req.session.user === undefined)
+//                resp.render('./pages/home', {data:data});
+//            else
+//                resp.render('./pages/home-user',{ data:data });
+//        
+//        
+//        });
+//    });
+    
 
     
 //
@@ -58,9 +71,8 @@ function PostModule(server){
 //        resp.redirect('/home');
 //    });
       
-      postModel.createPost(req.body.title, allTags, req.body.picture, new Date(), req.body.privacy, allShared, 
+      postModel.createPost(req.body.title, allTags, req.body.picture, new Date(), req.body.privacy, allShared, function(list){
           
-          function(list){
             const data = {list: list};
             resp.redirect('/home');               
       });

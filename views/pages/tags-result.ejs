@@ -196,24 +196,24 @@ footer h3 {
 <div class="container">
 <div class="header">
     <nav class="nav">
-        <span><a href="/" class="home">dankmems</a></span>
-        <span><a href="/" class="trend">on firee</a></span>
+        <span><a href="/home" class="home">dankmems</a></span>
+        <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
         <span><a href="/login" class="login">Log in</a></span>
         <span><a href="/register" class="register" >Register</a></span>
     </nav>
 </div>
 <div class="main">
-    <% for(var i=0;i<data.post.length;i++){ %>
-       <% if (data.post[i].privacy === 'Public'){%>
+    <% for(var i=0;i<data.list.length;i++){ %>
+       <% if (data.list[i].privacy === 'Public'){%>
          <%- include('./post', {
-            title: data.post[i].title,
-            picture: data.post[i].picture,
-            tags: data.post[i].tags,
+            title: data.list[i].title,
+            picture: data.list[i].picture,
+            tags: data.list[i].tags,
       }); %>
-        <% for(var j=0;j<data.post[i].tags.length;j++) { %>
+        <% for(var j=0;j<data.list[i].tags.length;j++) { %>
             <%- include('./tags-row', {
-                tag: data.post[i].tags[j],
+                tag: data.list[i].tags[j],
         }); %>
     
         <% } %>

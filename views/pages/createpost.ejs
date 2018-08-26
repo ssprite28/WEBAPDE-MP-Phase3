@@ -123,6 +123,30 @@
         cursor: pointer;
     }
     
+    .logout{
+        color:white;
+        float: right;
+        padding: 5px;
+        position: absolute;
+        right: 130px;
+        top: 16px;
+        font-weight: bold;
+        font-size: 20px;
+        text-decoration: none;
+    }
+
+    .logout:hover{
+        cursor: pointer;
+        color: gainsboro;
+    }
+    
+    .privacy{
+        font-size: 15px;
+        margin-left: 5px;
+    }
+    
+    
+    
 </style>
 <script>function myFunction() {
     alert("Meme uploaded!");
@@ -150,18 +174,28 @@
         <br>
         <span><label>Dank title:</label> <input type="text" name="title"/></span>
         &emsp;
+<!--
         <span><input type="radio" name="privacy" value="Public" checked="checked">Public</span>
         <span><input type="radio" name="privacy" value="Private">Private</span>
-        <br/>
+-->
         <br>
+        <br>
+        <div class = "privacy">
+            <span><input type="radio" name="privacy" value="Public" checked="checked">Public</span>
+            <span><input type="radio" name="privacy" value="Private">Private</span>
+        </div>
+
+        <br>
+        
         <div><label>Tags:</label> <input type="text" name="tags"/></div>
+        
         <br/>
         <label>Share meme with:</label>
         <input type="text" name="shareuser"/>
         &emsp;
         <br>
         <br>
-        <div><button onclick="myFunction()">Upload meme</button></div>
+        <div><input type='submit' value='Upload Meme'></div>
     </form>
 </div> 
 </div>

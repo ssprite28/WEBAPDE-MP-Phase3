@@ -5,9 +5,10 @@ const fs = require('fs');
 function TagModule(server){
     
   server.get('/tags', function(req, resp){
-    tagModel.viewTags(function(list){
+    tagModel.viewTags(req.session.user, function(list){
       const data = { list:list };
       resp.render('./pages/tags',{ data:data });
+      console.log(list.length);
     });
   });
     

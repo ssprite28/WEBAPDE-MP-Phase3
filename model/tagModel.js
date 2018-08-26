@@ -24,11 +24,28 @@ const tagModel = mongoose.model('tag', tagSchema);
 
 //module.exports.addInvetory = addInvetory;
 
-function viewTags(callback){
-  tagModel.find({}, function (err, list) {
+//function viewTags(callback){
+//  tagModel.find({}, function (err, list) {
+//    if(err) return console.error(err);
+//    callback(list);
+//  });
+//}
+
+function viewTags(username, callback){
+  //Aggregate is the closest thing in Mongo to Join in SQL
+  tagModel.aggregate([
+   {
+    $lookup: {
+           from: "tags",
+           localField: "items",
+           foreignField: "_id",
+           as: "itemNames" }
+    }
+  ]).exec(function (err, list) {
     if(err) return console.error(err);
     callback(list);
   });
+    
 }
 
 module.exports.viewTags = viewTags;

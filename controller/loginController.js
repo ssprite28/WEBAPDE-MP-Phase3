@@ -40,6 +40,15 @@ function LoginModule(server){
          resp.render('./pages/edit-profile', {data: data}); 
       }); 
   });
+    
+  server.get('/all-users', function(req, resp){
+    loginModel.findAllUsers(function(list){
+        const data = {list:list}
+        
+    });
+
+  });
+
 
 
     

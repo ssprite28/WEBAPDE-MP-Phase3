@@ -26,6 +26,17 @@ function checkLogin(username, password, callback){
 
 module.exports.checkLogin = checkLogin;
 
+function findAllUsers (callback){
+    
+    loginModel.find({}, function (err, login){
+        if (err) return console.error(err);
+        callback(login);
+    });
+}
+
+module.exports.findAllUsers = findAllUsers;
+
+
 function register(username, password, date, description, callback){
   const instance = loginModel({ user: username, pass: password, picture: './imgs/Blank.png', dateRegistered: date, description: description });
     

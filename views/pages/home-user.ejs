@@ -42,6 +42,22 @@ body {
     font-size: 15px;
     height: 0px;
 }
+    
+.posterbold {
+    font-family: sans-serif;
+    margin-left: 0px;
+    font-size: 15px;
+    height: 0px;
+    font-weight: bold;
+}
+
+.timestamp{
+    font-family: sans-serif;
+    margin-left: 0px;
+    font-size: 11px;
+    height: 0px;
+} 
+
 label{
     font-weight: bold;
 }
@@ -171,7 +187,7 @@ a{
 }
 
 .title{
-    margin-left: 0px;
+    margin-left: -2px;
     font-size: x-large;
     font-weight: 700;
     font-family: sans-serif;
@@ -215,7 +231,6 @@ footer h3 {
             tags: data.list[i].tags,
             uploadedBy: data.list[i].uploadedBy,
             timestamp: data.list[i].timestamp,
-            
       }); %>
         <% for(var j=0;j<data.list[i].tags.length;j++) { %>
             <%- include('./tags-row', {

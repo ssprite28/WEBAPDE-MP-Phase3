@@ -2,11 +2,12 @@ const mongoose = require('./connectionBase').connection;
 
 const postSchema = new mongoose.Schema({
     title: { type: String },
+    uploadedBy: { type: String },
     tags: [ { type: String } ],
     picture: { type: String },
     comments: [ { type: String } ],
     likes: { type: Number },
-    timestamp: { type: String },
+    timestamp: { type: Date },
     privacy: { type: String },
     shareuser: [ { type: String } ],
 },{ versionKey: false });
@@ -30,6 +31,8 @@ function viewPosts(username, callback){
     
 }
 
+
+
 //function viewPosts(username, callback){
 //    
 //    postModel.find({}, function(err, list){
@@ -41,9 +44,9 @@ function viewPosts(username, callback){
 
 module.exports.viewPosts = viewPosts;
 
-function createPost(title, tagsList, picture, timestamp, privacy, shareuserList, callback){
+function createPost(user, title, tagsList, picture, timestamp, privacy, shareuserList, callback){
   const postInstance = postModel({
-      //userID: id, idk how to get the id, we need sessions
+      uploadedBy: user,
       title: title,
       tags: tagsList,
       picture: picture,

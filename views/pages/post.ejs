@@ -1,10 +1,19 @@
+
+<% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+
 <div class='post'>
     <div>
         <span class='title'><%=title%></span>
     </div>
     <div>
-        <br/>
-        <span class='poster'>User</span>
+        <br>
+
+        <div>
+            <span class='poster'> by: <%=uploadedBy%></span>
+        </div>
+        <div>
+            <span class = 'timestamp'>Published on <%=months[timestamp.getMonth()]%> <%=timestamp.getFullYear()%></span>
+        </div>
 
     </div>
     <div>

@@ -5,9 +5,8 @@
 const mongoose = require('./connectionBase').connection;
 
 const tagSchema = new mongoose.Schema({
-    userID: { type: String },
+    user: { type: String },
     body: { type: String },
-    timestamp: { type: String },
     parentPostID: {type: String },
 },{ versionKey: false });
 
@@ -31,7 +30,22 @@ const tagModel = mongoose.model('tag', tagSchema);
 //  });
 //}
 
-function viewTags(username, callback){
+function addTag(username, tag, parent, callback){
+    const instance = tagModel({ 
+        user: username, 
+        body: tag, 
+        parentPostID: parent, 
+    });
+    
+    instance.save(function (err, inv){
+        if (err) return console.error(err);
+        callback();
+    });
+}
+
+module.exports.addTag = addTag;
+
+function viewTags(callback){
   //Aggregate is the closest thing in Mongo to Join in SQL
   tagModel.aggregate([
    {

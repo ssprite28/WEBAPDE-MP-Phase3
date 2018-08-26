@@ -163,19 +163,7 @@ a{
 
 
 </style>
-<script>
-function searchTag(){
-    var searchTag = document.getElementById("searchbar").value;
-    <% for(var j=0;j<data.list.length;j++) { %>
-            var tag="";
-            tag = data.list[j].body;
-            if(searchTag.toUpperCase() == tag.toUpperCase())
-            <%- include('./tags-row', {
-                tag: data.list[j].body,
-        }); %>
-         <% } %>
-}
-</script>
+
 </head>
     
 <body>
@@ -185,7 +173,7 @@ function searchTag(){
         <span><a href="/home" class="home">dankmems</a></span>
         <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
-        <span><a href="/login" class="login">Log in</a></span>
+        <span><a href="/" class="login">Log in</a></span>
         <span><a href="/register" class="register" >Register</a></span>
     </nav>
 </div>

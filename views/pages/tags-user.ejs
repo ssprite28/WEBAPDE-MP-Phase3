@@ -4,13 +4,13 @@
 <title>dankmems: Memes are Dreams</title>
 <!--<link rel="stylesheet" href="Home.css">-->
 <style>
-    .header{
+.header{
     background-color: black;
     box-shadow: 0 1px 0px rgba(0,0,0,.2);
     height:50px;
 }
 
-html,body {
+html,body{
     font: Helvetica Nueue;
     font-family: sans-serif;
     background-color: #E6ECF0;
@@ -30,29 +30,36 @@ html,body {
     flex-direction: column;
 }
 
+.tags{
+    color: dodgerblue;
+    font-weight: bold;
+    padding: 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tagsresult{
+    border-bottom: 0.5px #E6ECF0 solid;
+    padding: 20px;
+}
+
 .tags:hover{
     color:deepskyblue;
 }
 
 .poster{
     font-family: sans-serif;
-    margin-left: 0px;
-    font-size: 15px;
-    height: 0px;
-    font-weight: bold;
+    margin-left: 25px;
+    height: 20px;
 }
-    
-.timestamp{
-    font-family: sans-serif;
-    margin-left: 0px;
-    font-size: 11px;
-    height: 0px;
-}    
-}
-
 
 label{
     font-weight: bold;
+}
+
+.searchtag{
+    border-bottom: 0.5px #E6ECF0 solid;
+    padding: 20px;
 }
 
 img{
@@ -70,44 +77,7 @@ img{
     justify-content: center;
     align-items: center;
     margin: auto;
-}
-
-footer{
-    background-color: white;
-    width: 1000px;
-    
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-}
-
-.tags{
-    color: dodgerblue;
-    font-weight: bold;
     padding: 20px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.footerlist {
-    font-weight: bold;
-    color: black;
-    padding: 20px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.footeritem {
-    color: black;
-    margin-left: auto
-    padding: 20px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.footer {
-    background-color: white;
 }
 
 
@@ -134,7 +104,7 @@ a{
        left: 550px;
 }
 
-.home:hover, .taglist:hover, .trend:hover, .footerlist:hover{
+.home:hover, .taglist:hover, .trend:hover{
     color:gainsboro;
     cursor: pointer;
 }
@@ -180,32 +150,21 @@ a{
 }
 
 .title{
-    margin-left: -2px;
+    margin-left: 10px;
     font-size: x-large;
     font-weight: 700;
     font-family: sans-serif;
-    margin-top: 0px;
+    margin-top: 10px;
 }
 
-footer ul {
-  list-style: none;
-  display: block;
-  float: left;
+.searchbtn{
+    color: black;
 }
-footer h3 {
-  font-weight: 100;
-  margin-bottom: 0;
-}
-    
-.pink{color: pink;}
-.red{color: red;}
-.orange{color: orange;}
-.green{color: green;}
-</style>   
+
+
+</style>
+
 </head>
-    
-   
-
     
 <body>
 <div class="container">
@@ -214,36 +173,30 @@ footer h3 {
         <span><a href="/home" class="home">dankmems</a></span>
         <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
-        <span><a href="/" class="login">Log in</a></span>
-        <span><a href="/register" class="register" >Register</a></span>
+        <span><a href="/logout" class="logout">Log out</a></span>
+        <span><a href="/profile" class="profile" >Profile</a></span>
     </nav>
 </div>
 <div class="main">
-    <% for(var i=0;i<data.list.length;i++){ %>
-       <% if (data.list[i].privacy === 'Public'){%>
-         <%- include('./post', {
-            title: data.list[i].title,
-            picture: data.list[i].picture,
-            tags: data.list[i].tags,
-            uploadedBy: data.list[i].uploadedBy,
-            timestamp: data.list[i].timestamp,
-      }); %>
-        <% for(var j=0;j<data.list[i].tags.length;j++) { %>
-            <%- include('./tags-row', {
-                tag: data.list[i].tags[j],
-        }); %>
-    
-        <% } %>
+ <div class="searchtag">
+        <label>Search Tag: </label><input type="text" name="searchbar" />
+        <button class="searchbtn" onclick="searchTag()">Search</button>
+    </div>
+    <div class="results">
     
     </div>
-        <% } %>
-    <% } %>
-          
+    <div>
+        <label>All Tags:</label>
+        <% for(var j=0;j<data.list.length;j++) { %>
+            <%- include('./tags-row', {
+                tag: data.list[j].body,
+        }); %>
+         <% } %>
+    </div>
+    <div>
         
-
-    
-    
-    
+        
+    </div>
     
 </div>
 </div>

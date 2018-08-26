@@ -1,6 +1,8 @@
 const postModel = require('../model/postModel');
 //const invetoryModel = require('../model/invetoryModel');
 
+const tagModel = require('../model/tagModel');
+
 function PostModule(server){
   
   server.get('/home', function(req, resp){
@@ -43,7 +45,9 @@ function PostModule(server){
   //For showing the create-post page      
   server.get('/create-post', function(req, resp){
       resp.render('./pages/createpost');
-  });    
+  });
+    
+ 
     
   server.post('/system-processing/createpost-result', function(req, resp){
 //    var IDList = [];
@@ -55,6 +59,12 @@ function PostModule(server){
       
       var Shared = req.body.shareuser;
       var allShared = Shared.split(',');
+      
+      for (var i=0;i<allTags.length;i++){
+          tagModel.addTag(req.session.user, allTags[i], req.body.title, function(list){
+              const data = {list:list};
+          });
+      }
           
 //    for(var key in req.body){
 //        var val = Number(req.body[key]);
@@ -71,7 +81,7 @@ function PostModule(server){
 //        resp.redirect('/home');
 //    });
       
-      postModel.createPost(req.body.title, allTags, req.body.picture, new Date(), req.body.privacy, allShared, function(list){
+      postModel.createPost(req.session.user, req.body.title, allTags, req.body.picture, new Date(), req.body.privacy, allShared, function(list){
           
             const data = {list: list};
             resp.redirect('/home');               

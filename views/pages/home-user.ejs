@@ -38,10 +38,10 @@ body {
 
 .poster{
     font-family: sans-serif;
-    margin-left: 25px;
-    height: 20px;
+    margin-left: 0px;
+    font-size: 15px;
+    height: 0px;
 }
-
 label{
     font-weight: bold;
 }
@@ -171,11 +171,11 @@ a{
 }
 
 .title{
-    margin-left: 10px;
+    margin-left: 0px;
     font-size: x-large;
     font-weight: 700;
     font-family: sans-serif;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 footer ul {
@@ -213,6 +213,9 @@ footer h3 {
             title: data.list[i].title,
             picture: data.list[i].picture,
             tags: data.list[i].tags,
+            uploadedBy: data.list[i].uploadedBy,
+            timestamp: data.list[i].timestamp,
+            
       }); %>
         <% for(var j=0;j<data.list[i].tags.length;j++) { %>
             <%- include('./tags-row', {

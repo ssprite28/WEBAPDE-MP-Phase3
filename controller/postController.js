@@ -17,18 +17,32 @@ function PostModule(server){
     });
   });
     
-//    server.get('/home', function(req, resp){
-//        postModel.viewPosts(req.session.user, function(list){
+    server.post('/search-tags', function(req, resp){
+        postModel.viewPosts(req.session.user, function(list){
 //            const data = {list: list};
-//            
-//            if (req.session.user === undefined)
-//                resp.render('./pages/home', {data:data});
-//            else
-//                resp.render('./pages/home-user',{ data:data });
-//        
-//        
-//        });
-//    });
+            
+            console.log("Search Bar: " + req.body.searchbar);
+            var search = req.body.searchbar;
+            
+            var arr1 = new Array();
+            
+            for (var i=0;i<list.length;i++)
+                if (list[i].tags.includes(search))
+                    arr1.push(list[i]);
+                
+            console.log("Arr1: " + arr1[0]);
+            
+            const data = {list:arr1};
+            
+            
+            if (req.session.user === undefined)
+                resp.render('./pages/home', {data:data});
+            else
+                resp.render('./pages/home-user',{ data:data });
+        
+        
+        });
+    });
     
 
     

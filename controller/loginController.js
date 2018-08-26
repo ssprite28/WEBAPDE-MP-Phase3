@@ -41,15 +41,26 @@ function LoginModule(server){
       }); 
   });
     
-  server.get('/all-users', function(req, resp){
+  server.get('/user-profile', function(req, resp){
     loginModel.findAllUsers(function(list){
-        const data = {list:list}
-        
+    const data = {list:list}
+    var split = req.query.id.split(",");
+    
+    //console.log("Title: " +split[1]);
+    console.log("Uploaded By: " +split[0]);
+    
+    const searchQuery = {uploadedBy: split[0]}
+    
+    resp.render('./pages/user-profile', {data:data, uploadedBy:searchQuery}); 
     });
 
   });
 
-
+server.get('/system-processing/edit-profile', function(req, resp){
+    loginModel.editDescription(req.session.user, req.body.description, function(req, resp){
+       resp.redirect('/profile');
+    });
+});
 
     
   server.post('/system-processing/login-authentication', function(req, resp){

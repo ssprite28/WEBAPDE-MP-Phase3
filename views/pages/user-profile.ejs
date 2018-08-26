@@ -21,7 +21,7 @@ img{
     padding-top: 0px;
     max-width: 650px;
     max-height: 650px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -149,12 +149,9 @@ label{
 }
     
 .description {
-/*
-    border-style: solid;
-    border-width: 1px;
-*/
+    border: 1.5px #E6ECF0 solid;
     text-indent: 5px;
-    padding: 10px;
+    padding: 5px;
 }
     
 .allposts {
@@ -181,24 +178,32 @@ label{
 </div>
 <div class="main">
 <div class="info">
-<span class="name"><h1><%= data.list.user %></h1>
-<div class="img"> <img class = 'profile' src= <%= data.list.picture %> ></div>
-<button><a href='/create-post'></a>Edit Profile</button></span>
-
-        <h3>Short description:</h3>
-            <p class="description"><input type="text" name="description" action='/system-processing/edit-profile' value=" <%= data.list.description %>"/> <input type="submit" name="Submit"/></p>
-       <br/>
-<div>
-<!--    <button><a href='/edit-description'></a>Edit Description</button>-->
+<span class="name">
+    <%for(var i=0; i<data.list.length; i++)%>
+    <%if(data.list[i].user === data.uploadedBy){%>
+     <h1> <%= data.list[i].user %></h1>
+    <%}%>
     
-<form action = '/create-post'>
-    <button>Create Post</button>
+    <div class="img"> <img class = 'profile' src= <%= data.list.picture %>> </div>
+</span>
+    <div class='name'><h5>Date Registered: <%= data.list.dateRegistered %> </h5></div>
+    
+<!--
+<form action = 'edit-profile' method='get'>
+    <input type ='submit' value ='Edit Profile'/>
 </form>
-    
-</div>
-    
+-->
+<h3>Short description:</h3>
+    <p class="description"><%= data.list.description %></p><br/>
 
+<!--    <button><a href='/edit-description'></a>Edit Description</button>-->
 
+<!--
+<form action="/create-post" method="get">
+    <input type="submit" value="Create Post"/>
+</form>
+-->
+  
 </div>
 </div>
 </div>

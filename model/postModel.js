@@ -33,6 +33,21 @@ function viewPosts(username, callback){
 
 module.exports.viewPosts = viewPosts;
 
+function viewMeme(title, picture){
+    const searchQuery = {title: title, picture: picture}
+    postModel.findOne(searchQuery, function (err, post){
+        if (post != undefined && post._id != null){
+            const passData = { post: post };
+            console.log("Id: " + post._id);
+        }
+            
+        const passData = { post: post };
+        resp.render('./pages/viewbig', {data: passData});
+    });
+}
+
+module.exports.viewMeme = viewMeme;
+
 function deletePost(id){
     postModel.deleteOne({ _id: id }, function (err) {});
 

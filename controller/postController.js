@@ -47,6 +47,15 @@ function PostModule(server){
         });
     });
     
+    server.get('/link-tags', function(req, resp){
+       var search = req.query.id;
+       console.log("Query: " + search);
+        
+       postModel.find({}, function (err, post){
+           
+       });
+    });
+    
 
     
 //

@@ -1,4 +1,5 @@
 const loginModel = require('../model/loginModel');
+const postModel = require('../model/postModel');
 var crypto = require('crypto');
 var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
 
@@ -26,14 +27,31 @@ function LoginModule(server){
     });
   });
     
+//  server.get('/profile', function(req, resp){
+//      loginModel.findUser(req.session.user, function(list){
+//         const data = {list:list}
+//         console.log(list);
+//          
+//         resp.render('./pages/profile', {data: data}); 
+//         
+//      });
+//      
+//  });
+    
   server.get('/profile', function(req, resp){
+      
+  var postData, data;
+      
       loginModel.findUser(req.session.user, function(list){
-         const data = {list:list}
-         console.log(list);
-          
-         resp.render('./pages/profile', {data: data}); 
-         
+         data = {list:list}
       });
+      
+      postModel.viewPosts(req.session.user, function(list){
+          postData = list;
+          resp.render('./pages/profile', { data: data, postData: postData });
+      });
+      
+      
       
   });
     

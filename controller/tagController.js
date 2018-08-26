@@ -17,6 +17,34 @@ function TagModule(server){
     });
   });
     
+  server.post('/search-tags', function(req, resp){
+    tagModel.viewTags(function(list){
+//      const data = { list:list };
+        
+      console.log("Search bar: " + req.body.searchbar);
+      var search = req.body.searchbar;
+        
+      var arr1 = new Array();
+        
+      console.log(list.length);
+        
+      for (var i=0;i<list.length;i++)    
+        if (list[i].tags.includes(search))
+            arr1.push(list[i]);
+        
+      const data = { list:arr1 };
+        
+      if (req.session.user === undefined)
+          resp.render('./pages/home', { data:data });
+      else
+          resp.render('./pages/home-user', {data:data});
+        
+      console.log(list.length);
+    });
+  });
+    
+  
+    
 //  server.get('/addInvetory', function(req, resp){
 //    resp.render('./pages/addInventory');
 //  });

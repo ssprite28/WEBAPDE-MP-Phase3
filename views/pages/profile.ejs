@@ -149,9 +149,12 @@ label{
 }
     
 .description {
-    border: 1.5px #E6ECF0 solid;
-    text-indent: 5px;
-    padding: 5px;
+/*
+    border-style: solid;
+    border-width: 1px;
+*/
+    text-indent: 10px;
+    padding: 0px;
 }
     
 .allposts {
@@ -162,6 +165,12 @@ label{
 .name {
     text-align: center;    
 }
+    
+.buttons {
+        
+}
+
+<% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
 
 </style>
 </head>
@@ -181,11 +190,18 @@ label{
 <span class="name"><h1><%= data.list.user %></h1>
     <div class="img"> <img class = 'profile' src= <%= data.list.picture %>> </div>
 </span>
-    <div class='name'><h5>Date Registered: <%= data.list.dateRegistered %> </h5></div>
-    
-<form action = 'edit-profile' method='get'>
-    <input type ='submit' value ='Edit Profile'/>
+    <div class='name'><h5>Date Registered: <%=months[data.list.dateRegistered.getMonth()]%> <%=data.list.dateRegistered.getDate()%>, <%=data.list.dateRegistered.getFullYear()%> </h5> </div>
+<span class='name'>
+<h4>Account Controls</h4>
+<form action='/create-post'>
+    <input type="submit" action='/create-post' value="Create Post"/>
 </form>
+<br>
+<form action='/edit-profile'>   
+    <input type ='submit' action='/edit-profile' value ='Edit Profile'/>
+</form>
+<br>
+</span> 
 
 <h3>Short description:</h3>
     <p class="description"><%= data.list.description %></p><br/>
@@ -193,13 +209,11 @@ label{
 <!--    <button><a href='/edit-description'></a>Edit Description</button>-->
  
 
-<form action="/create-post" method="get">
-    <input type="submit" value="Create Post"/>
-</form>
+
     
+
     
-</div>
-<div class="posts">
+
 
 </div>
 </div>

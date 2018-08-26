@@ -206,7 +206,7 @@ label{
 <h3>Short description:</h3>
     <p class="description"><%= data.description %></p><br/>
     <% for(var i=0;i<postData.length;i++){ %>
-       <% if (postData[i].privacy === 'Public'){%>
+       <% if (postData[i].uploadedBy === data.list.user){%>
          <%- include('./post', {
             title: postData[i].title,
             picture: postData[i].picture,
@@ -220,6 +220,7 @@ label{
         }); %>
     
         <% } %>
+        <input type='submit' value='Delete Post'>
     
     </div>
         <% } %>

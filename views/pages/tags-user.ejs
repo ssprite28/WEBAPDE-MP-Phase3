@@ -179,9 +179,10 @@ a{
 </div>
 <div class="main">
  <div class="searchtag">
-        <label>Search Tag: </label><input type="text" name="searchbar" />
-        <button class="searchbtn" onclick="searchTag()">Search</button>
-    </div>
+<form name='searchTags' method='post' action='searchTags'>
+    <label>Search Tag: </label><input type="text" name="searchbar" />
+    <input type = 'submit' value='Search'/>
+</form>
     <div class="results">
     
     </div>

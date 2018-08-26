@@ -3,6 +3,8 @@
 
 //Contain all Mongoose code that will be used for the login
 const mongoose = require('./connectionBase').connection;
+var crypto = require('crypto');
+var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
 
 const loginSchema = new mongoose.Schema({
   user: { type: String },
@@ -16,7 +18,22 @@ const loginSchema = new mongoose.Schema({
 const loginModel = mongoose.model('login', loginSchema);
 
 function checkLogin(username, password, callback){
-  const searchQuery = { user: username, pass: password };
+    
+  const searchQuery = { user: username};
+    
+  loginModel.findOne(searchQuery, function (err, login) { 
+      if(err) return console.error(err);
+    
+      if(login != undefined && login._id != null) {
+        var cipher = crypto.createDecipher('aes-128-cbc','mypassword');
+        var decipheredPass = cipher.update(login.pass,'hex','utf8') + cipher.final('utf8');
+        
+        console.log(decipheredPass);
+      }
+  });
+  
+    
+  //const searchQuery = { user: username, pass: password };
 
   loginModel.findOne(searchQuery, function (err, login) {
     if(err) return console.error(err);
@@ -25,16 +42,6 @@ function checkLogin(username, password, callback){
 }
 
 module.exports.checkLogin = checkLogin;
-
-function findAllUsers (callback){
-    
-    loginModel.find({}, function (err, login){
-        if (err) return console.error(err);
-        callback(login);
-    });
-}
-
-module.exports.findAllUsers = findAllUsers;
 
 
 function register(username, password, date, description, callback){

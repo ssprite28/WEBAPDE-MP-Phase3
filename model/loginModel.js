@@ -47,6 +47,10 @@ module.exports.checkLogin = checkLogin;
 function register(username, password, date, description, callback){
   const instance = loginModel({ user: username, pass: password, picture: './imgs/Blank.png', dateRegistered: date, description: description });
     
+    instance.pass = mykey.update(password, 'utf8','hex') + mykey.final('hex');
+    
+    console.log(instance.pass);
+    
   instance.save(function (err, login) {
     if(err) return console.error(err);
     callback();

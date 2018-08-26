@@ -1,4 +1,7 @@
 const postModel = require('../model/postModel');
+const formidable = require('formidable');
+const fs = require('fs');
+const mv = require('mv');
 //const invetoryModel = require('../model/invetoryModel');
 
 const tagModel = require('../model/tagModel');
@@ -68,17 +71,38 @@ function PostModule(server){
 //    var qtyList = [];
 //    var total = 0;
       
-      var Tags = req.body.tags;
-      var allTags = Tags.split(',');
+
       
-      var Shared = req.body.shareuser;
-      var allShared = Shared.split(',');
-      
-      for (var i=0;i<allTags.length;i++){
-          tagModel.addTag(req.session.user, allTags[i], req.body.title, function(list){
-              const data = {list:list};
-          });
-      }
+      var form = new formidable.IncomingForm();
+      form.parse(req, function (err, fields, files) {
+          var oldpath = files.picture.path;
+          var newpath = __dirname + '/../public/upload/' + files.picture.name;
+//          fs.rename(oldpath, newpath, function (err) {
+
+            mv(oldpath, newpath, function(err) {
+              console.log('file transfer started');
+              if (err) throw err;
+                
+                        
+              var Tags = fields.tags;
+              var allTags = Tags.split(',');
+
+              var Shared = fields.shareuser;
+              var allShared = Shared.split(',');
+
+              for (var i=0;i<allTags.length;i++){
+              tagModel.addTag(req.session.user, allTags[i], fields.title, function(list){
+                  const data = {list:list};
+              });
+              }
+              
+               postModel.createPost(req.session.user, fields.title, allTags, files.picture.name, new Date(), fields.privacy, allShared, function(list){
+                    const data = {list: list};
+                    resp.redirect('/home');               
+                });//createPost
+              
+          });//rename
+      });//parse
           
 //    for(var key in req.body){
 //        var val = Number(req.body[key]);
@@ -95,11 +119,7 @@ function PostModule(server){
 //        resp.redirect('/home');
 //    });
       
-      postModel.createPost(req.session.user, req.body.title, allTags, req.body.picture, new Date(), req.body.privacy, allShared, function(list){
-          
-            const data = {list: list};
-            resp.redirect('/home');               
-      });
+     
       
   });
 }

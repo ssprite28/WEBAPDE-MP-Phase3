@@ -12,13 +12,13 @@
             <span class='poster' id = <%=uploadedBy%>> by: <span class='posterbold'><a href ='/user-profile?id=<%=uploadedBy %>'><%=uploadedBy%></a></span></span>
         </div>
         <div>
-            <span class = 'timestamp'>Published on <%=months[timestamp.getMonth()]%> <%=timestamp.getFullYear()%></span>
+            <span class = 'timestamp'>Published on <%=months[timestamp.getMonth()]%> <%=timestamp.getDate()%>, <%=timestamp.getFullYear()%></span>
         </div>
 
     </div>
     <div>
         <a href ="/viewbig?id=<%=picture %>,<%=title%>">
-            <img id='<%=picture %>' src = 'upload/<%=picture %>'/></a>
+            <img id='<%=picture %>' src ='./upload/<%=picture %>'/></a>
     </div>
     
     

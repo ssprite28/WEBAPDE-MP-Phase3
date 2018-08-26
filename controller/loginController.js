@@ -29,8 +29,12 @@ function LoginModule(server){
   server.get('/profile', function(req, resp){
       loginModel.findUser(req.session.user, function(list){
          const data = {list:list}
+         console.log(list);
+          
          resp.render('./pages/profile', {data: data}); 
-      }); 
+         
+      });
+      
   });
     
    //Placeholder

@@ -292,9 +292,17 @@ var login, loginhref, username, register, registerhref, usernamehref;
             <%- include('./tags-row', {
                 tag: data.post.tags[j],
         }); %>
-    
+            
         <% } %>
         </div>
+        <div>
+            &emsp;
+            <label>Description:</label>
+            &emsp;
+            <label><%=data.post.description%></label>
+        </div>
+        <br>
+        <br>
     </div>
 </div>
 </body>

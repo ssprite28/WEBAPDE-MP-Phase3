@@ -65,17 +65,20 @@ function LoginModule(server){
   });
     
   server.get('/user-profile', function(req, resp){
-    loginModel.findAllUsers(function(list){
-    const data = {list:list}
-    var split = req.query.id.split(",");
-    
-    //console.log("Title: " +split[1]);
-    console.log("Uploaded By: " +split[0]);
-    
-    const searchQuery = {uploadedBy: split[0]}
-    
-    resp.render('./pages/user-profile', {data:data, uploadedBy:searchQuery}); 
-    });
+      var postData, data, user;
+      var split = req.query.id.split(",");
+      var search = split[0];
+      
+      loginModel.findUser(search, function(list){
+         data = {list:list}
+      });
+      
+      postModel.viewPosts(search, function(list){
+          postData = list;
+          user = search;
+          
+          resp.render('./pages/user-profile', { data: data, postData: postData, user:user });
+      });
 
   });
 

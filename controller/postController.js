@@ -29,16 +29,15 @@ function PostModule(server){
     server.post('/search-tags', function(req, resp){
         postModel.viewPosts(req.session.user, function(list){
 
-            console.log("Search Bar: " + req.body.searchbar);
+            
             var search = req.body.searchbar;
+            console.log("Search Bar: " + search);
             
             var arr1 = new Array();
             
             for (var i=0;i<list.length;i++)
                 if (list[i].tags.includes(search))
                     arr1.push(list[i]);
-                
-            console.log("Arr1: " + arr1[0]);
             
             const data = {list:arr1};
             const user = req.session.user;
@@ -252,17 +251,42 @@ function PostModule(server){
       
   });
     
-  server.post('/add-tags', function(req, resp){
+  server.post('/system-processing/add-tags', function(req, resp){
       
       const id = req.query.id;
-      const tags = req.body.tags;
-      console.log(tags);
+      console.log("ID: " + id);
+      var tags;
       
-      var data;
+      var form = new formidable.IncomingForm();
+      form.parse(req, function(err, fields, files){
+          tags = fields.tags;
+          console.log("Tags: " + tags);
+      })
+      
+      var data, tagsList, allTags, oldTags;
       
       postModel.viewOne(id, function(post) {
            data = {post:post}
+           tagsList = data.post.tags;
+           tagsList += ', ';
+           tagsList += tags;
+           console.log(tagsList);
+           allTags = tagsList.split(',');
+           oldTags = tags.split(',');
+          
+           for (var i=0;i<oldTags.length;i++) {
+               tagModel.addTag(req.session.user, oldTags[i], post.title, function(list){
+                   const data = {list:list};
+               });
+           }
+          
+           postModel.modifyTags(id, allTags);
+           
+          resp.redirect('/home');
        });
+      
+
+      
       
       
       

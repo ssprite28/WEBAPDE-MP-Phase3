@@ -107,6 +107,21 @@ function editPost(user, title, tagsList, picture, privacy, shareuserList, descri
 
 module.exports.editPost = editPost;
 
+function modifyTags (id, tagsList){
+    console.log("ID: " + id);
+    
+        postModel.update({_id: id}, {
+        tags: tagsList
+
+        
+    }, function(err){
+        
+    });
+    
+}
+
+module.exports.modifyTags = modifyTags;
+
 function createPost(user, title, tagsList, picture, timestamp, privacy, shareuserList, description,  callback){
   const postInstance = postModel({
       uploadedBy: user,

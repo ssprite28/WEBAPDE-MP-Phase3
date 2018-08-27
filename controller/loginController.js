@@ -57,12 +57,6 @@ function LoginModule(server){
   });
     
    //Placeholder
-   server.get('/edit-profile', function(req, resp){
-      loginModel.findUser(req.session.user, function(list){
-         const data = {list:list}
-         resp.render('./pages/edit-profile', {data: data}); 
-      }); 
-  });
     
   server.get('/user-profile', function(req, resp){
       var postData, data, user;

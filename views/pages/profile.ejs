@@ -192,6 +192,16 @@ img {
 .remove {
     display: none;    
 }
+    
+.postbordertop {
+    padding: 20px;
+    border-bottom: 1px #E6ECF0 solid;    
+}
+    
+.postborderbottom {
+    padding: 20px;
+    border-top: 1px #E6ECF0 solid;    
+}
 
 <% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
 
@@ -216,19 +226,15 @@ img {
     <div class='name'><h5>Date Registered: <%=months[data.list.dateRegistered.getMonth()]%> <%=data.list.dateRegistered.getDate()%>, <%=data.list.dateRegistered.getFullYear()%> </h5> </div>
 <span class='name'>
 <h4>Account Controls</h4>
-<form action='/create-post'>
-    <input type="submit" action='/create-post' value="Create Post"/>
-</form>
-<br>
-<form action='/edit-profile'>   
-    <input type ='submit' action='/edit-profile' value ='Edit Profile'/>
+<form class = 'postbordertop' action='/create-post'>
+    <input class = 'postborderbottom' type="submit" action='/create-post' value="Create Post"/>
 </form>
 <br>
 </span> 
 
 <h3>Short description:</h3>
     <p class="description"><%= data.list.description %></p><br/>
-<h3>Your Posts: 
+<h3 class='postbordertop'>Your Posts: 
     Time to Share or Edit them!</h3>
     <% for(var i=(postData.length-1);i>=0;i--){ %>
        <% if (postData[i].uploadedBy === data.list.user){%>

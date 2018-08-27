@@ -54,12 +54,26 @@ function PostModule(server){
     });
     
     server.get('/link-tags', function(req, resp){
-       var search = req.query.id;
-       console.log("Query: " + search);
-        
-       postModel.find({}, function (err, post){
+        postModel.viewPosts(req.session.user, function(list){
+           var search = req.query.id;
+           console.log("Query: " + search);
+
+           var arr1 = new Array();
+
+            for (var i=0;i<list.length;i++)
+                if (list[i].tags.includes(search))
+                    arr1.push(list[i]);
+            
+               const data = {list:arr1};
+               const user = req.session.user;
+            
+            if (req.session.user === undefined)
+                resp.render('./pages/home', {data:data});
+            else
+                resp.render('./pages/home-user', {data:data, user:user});
            
        });
+
     });
     
     server.post('/delete-post', function(req, resp){

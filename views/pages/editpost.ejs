@@ -1,3 +1,4 @@
+
 <html>
 <style>
     .header{
@@ -28,7 +29,7 @@
     .main{
         background-color: white;
         width: 1000px;
-        height: 110%;
+        height: 100%;
         margin: auto;
         padding: 20px;
     
@@ -157,18 +158,18 @@
 </style>
 <script>
 function onFileSelected(event) {
-    var selectedFile = event.target.files[0];
-    var reader = new FileReader();
+  var selectedFile = event.target.files[0];
+  var reader = new FileReader();
 
-    var imgtag = document.getElementById("myimage");
-    imgtag.title = selectedFile.name;
+  var imgtag = document.getElementById("myimage");
+  imgtag.title = selectedFile.name;
 
-    reader.onload = function(event) {
+  reader.onload = function(event) {
     imgtag.src = event.target.result;
-    };
+  };
 
-    reader.readAsDataURL(selectedFile);
-} 
+  reader.readAsDataURL(selectedFile);
+}
 </script>
 <head>
 <title>dankmems: Memes are Dreams</title>
@@ -186,14 +187,14 @@ function onFileSelected(event) {
 </div>
 <div class="main">
 <div class="info">
-    <span><h1>CREATE POST</h1></span>
+    <span><h1>EDIT POST</h1></span>
 <div class="uploadmeme">
-    <form name="create-post" action="/system-processing/createpost-result" method="post" enctype="multipart/form-data">
+    <form name="edit-post" action="/system-processing/editpost-result" method="post" enctype="multipart/form-data">
         <span>Preview</span>
-        <div><img id='myimage'/></div>
+        <div><img id='myimage' src='./upload/<%=data.post.picture%>'/> </div>
         <div><input type="file" onchange='onFileSelected(event)' class="upload" name="picture"/></div>
         <br>
-        <span><label>Dank title:</label> <input type="text" name="title"/></span>
+        <span><label>Dank title:</label> <input type="text" name="title" value='<%=data.post.title%>'/></span>
         &emsp;
 <!--
         <span><input type="radio" name="privacy" value="Public" checked="checked">Public</span>
@@ -208,11 +209,11 @@ function onFileSelected(event) {
 
         <br>
         
-        <div><label>Tags:</label> <input type="text" name="tags"/></div>
+        <div><label>Tags:</label> <input type="text" name="tags" value='<%=data.post.tags%>'/></div>
         
         <br/>
         <label>Share meme with:</label>
-        <input type="text" name="shareuser"/>
+        <input type="text" name="shareuser" value='<%=data.post.shareuser%>'/>
         &emsp;
         <br>
         <br>

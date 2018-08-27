@@ -220,6 +220,18 @@ footer h3 {
 .remove {
     display: none;    
 }
+    
+.username{
+    color:white;
+    float: right;
+    padding: 5px;
+    position: absolute;
+    right: 300px;
+    top: 16px;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+}
 
 </style>
 <script>
@@ -234,6 +246,7 @@ footer h3 {
         <span><a href="/home" class="home">dankmems</a></span>
         <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
+        <span><a href='/profile' class="username">User: <%=user%></a></span>
         <span><a href="/logout" class="logout">Log out</a></span>
         <span><a href="/profile" class="profile" >Profile</a></span>
     </nav>
@@ -257,9 +270,53 @@ footer h3 {
         }); %>
     
         <% } %>
-    </div>
+<!--    </div>-->
+        <% } else if (data.list[i].privacy === 'Private') {%>
+            <% console.log(data.list[i].shareuser) %>
+            
+            
+            <% if (data.list[i].shareuser != undefined && data.list[i].uploadedBy === user) { %>
+                <% console.log(data.list[i].title + " shareduser is " + data.list[i].shareuser) %>
+                <%- include('./post', {
+                title: data.list[i].title,
+                picture: data.list[i].picture,
+                tags: data.list[i].tags,
+                uploadedBy: data.list[i].uploadedBy,
+                timestamp: data.list[i].timestamp,
+                likes: data.list[i].likes,
+                user: user,
+                }); %>
+            <% for(var j=(data.list[i].tags.length-1);j>=0;j--) { %>
+                <%- include('./tags-row', {
+                    tag: data.list[i].tags[j],
+                }); %>
+            <% } %>
+<!--    </div>-->
+
+    
+          <% } else if (data.list[i].shareuser != undefined && data.list[i].shareuser.includes(user)) { %>
+            
+            <%- include('./post', {
+            title: data.list[i].title,
+            picture: data.list[i].picture,
+            tags: data.list[i].tags,
+            uploadedBy: data.list[i].uploadedBy,
+            timestamp: data.list[i].timestamp,
+            likes: data.list[i].likes,
+            user: user,
+      }); %>
+        <% for(var j=(data.list[i].tags.length-1);j>=0;j--) { %>
+            <%- include('./tags-row', {
+                tag: data.list[i].tags[j],
+        }); %>
         <% } %>
+        </div>
     <% } %>
+    
+<% } %>
+    
+<% } %>   
+    
 </div>
 </div>
 </body>

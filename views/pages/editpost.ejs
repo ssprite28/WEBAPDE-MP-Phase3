@@ -189,7 +189,7 @@ function onFileSelected(event) {
 <div class="info">
     <span><h1>EDIT POST</h1></span>
 <div class="uploadmeme">
-    <form name="edit-post" action="/system-processing/editpost-result" method="post" enctype="multipart/form-data">
+    <form name="edit-post" action="/system-processing/editpost-result?id=<%=data.post._id %>" method="post" enctype="multipart/form-data">
         <span>Preview</span>
         <div><img id='myimage' src='./upload/<%=data.post.picture%>'/> </div>
         <div><input type="file" onchange='onFileSelected(event)' class="upload" name="picture"/></div>
@@ -217,7 +217,7 @@ function onFileSelected(event) {
         &emsp;
         <br>
         <br>
-        <div><input type='submit' value='Upload Meme'></div>
+        <div><input type='submit' value='Edit Post'></div>
     </form>
 </div> 
 </div>

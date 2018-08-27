@@ -124,9 +124,17 @@ function PostModule(server){
     
 });
     
- server.post('/edit-post', function(req, resp){
-     resp.render('./pages/editpost');
- });
+    server.post('/edit-post', function (req, resp){
+       var id = req.query.id;
+        
+       postModel.viewOne(id, function(post) {
+           const data = {post:post}
+           
+            resp.render('./pages/editpost', {data:data}); 
+       });
+        
+      
+    });
     
     
     
@@ -204,9 +212,11 @@ function PostModule(server){
   });
     
   server.post('/system-processing/editpost-result', function(req, resp){
-
+      
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
+          const id = req.query.id;
+          console.log("req.query.id: " +  id);
           var editID;
           var oldpath = files.picture.path;
           var newpath = __dirname + '/../public/upload/' + files.picture.name;
@@ -222,33 +232,25 @@ function PostModule(server){
               var Shared = fields.shareuser;
               var allShared = Shared.split(',');
                 
-              postModel.viewPosts('temp',function(list){
-                const data = { list:list };
-                const user = req.session.user;
-        
-                console.log("Number of posts: " + data.list.length);
-                  
-                for (var i=0;i<data.list.length;i++){
-                    if (data.list[i].title === fields.title && data.list[i].picture === files.picture.name && data.list[i].uploadedBy === req.session.user)
-                        editID = data.list[i]._id;
-                }
-                  
-                    postModel.editPost(req.session.user, fields.title, allTags, files.picture.name, new Date(), fields.privacy, allShared,  editID, function(list){
-                    const data = {list: list};
-                    resp.redirect('/home');
-  
-                });
-
-
-//              for (var i=0;i<allTags.length;i++){
-//              tagModel.addTag(req.session.user, allTags[i], fields.title, function(list){
-//                  const data = {list:list};
-//              });
-//              }
-
-                });//createPost
-              
+                    console.log("req.query.id: " +  id);
+                    
+//                    postModel.editPost(req.session.user, fields.title, allTags,                           files.picture.name, new Date(), fields.privacy, allShared,  id,                       function(list){
+//                        
+//                    const data = {list: list};
+//                    resp.redirect('/profile');
+                var title = fields.title;
+                var user = req.session.user;
+                var pic = files.picture.name;
+                var privacy = fields.privacy;
+                
+                postModel.editPost(user, title, allTags, pic, privacy, allShared, id);
+                resp.redirect('/profile');
           });//rename
+          
+          
+          
+          
+          
       });//parse
       
   });

@@ -33,10 +33,12 @@ function viewPosts(username, callback){
 
 module.exports.viewPosts = viewPosts;
 
-function viewOne(id, title, callback){
-    const searchQuery = {title: title, _id : id}
-    postModel.findOne(searchQuery, function (err, post){
-         callback(post);             
+function viewOne(id, callback){
+    const searchQuery = {_id: id};
+    
+    postModel.findOne(searchQuery, function (err, post) {
+        if (err) return console.error(err);
+        callback(post);
     });
 }
 
@@ -67,31 +69,37 @@ function deletePost(id){
 module.exports.deletePost = deletePost;
 
 
-function editPost(user, title, tagsList, picture, privacy, shareuserList, id, callback){
-    console.log("ID to edit: " + id);
+function editPost(user, title, tagsList, picture, privacy, shareuserList, id){
+    console.log("ID: " + id);
     
-//    postModel.findById(id, function (err, post){
-//        if (err) return err;
-//        
-//        post.title = title;
-//        post.tags = tagsList;
-//        post.picture = picture;
-//        post.privacy = privacy;
-//        post.shareuser = shareuserList;
-//        
-//        post.save(function (err, updatedPost){
-//            if (err) return err;
-//        });
-//        
-//        console.log("Edited");
+//    postModel.findOneAndUpdate({ _id: id }, 
+//    {
+//        title,
+//        user,
+//        tagsList,
+//        picture,    
+//        privacy,
+//        shareuserList
 //        
 //    });
     
+    postModel.update({_id: id}, {
+        user: user,
+        title: title,
+        picture: picture,
+        privacy: privacy,
+        shareuser: shareuserList,
+        tags: tagsList 
+        
+    }, function(err){
+        
+    });
     
-     console.log(title);
-     console.log(picture);
-    
-    
+//   postModel.updateOne(
+//        { _id: id },
+//        { $set: { title : title } }
+//        
+//   );
     
 }
 

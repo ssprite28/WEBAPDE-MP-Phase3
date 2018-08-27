@@ -1,5 +1,12 @@
 
-<% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
+<% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+   var minutes;
+
+   if (timestamp.getMinutes() < 10)
+       minutes = '0' + timestamp.getMinutes();
+   else
+       minutes = timestamp.getMinutes();
 
 var remove;
 if (uploadedBy === user)
@@ -25,7 +32,7 @@ else {
             <span class='poster' id = <%=uploadedBy%>> by: <span class='posterbold'><a href ='/user-profile?id=<%=uploadedBy %>'><%=uploadedBy%></a></span></span>
         </div>
         <div>
-            <span class = 'timestamp'>Published on <%=months[timestamp.getMonth()]%> <%=timestamp.getDate()%>, <%=timestamp.getFullYear()%></span>
+            <span class = 'timestamp'>Published on <%=months[timestamp.getMonth()]%> <%=timestamp.getDate()%>, <%=timestamp.getFullYear()%> at <%=timestamp.getHours()%>:<%=minutes%> </span>
         </div>
 
     </div>

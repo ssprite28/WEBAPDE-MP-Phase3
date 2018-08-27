@@ -70,7 +70,7 @@ function deletePost(id){
 module.exports.deletePost = deletePost;
 
 
-function editPost(user, title, tagsList, picture, privacy, shareuserList, id){
+function editPost(user, title, tagsList, picture, privacy, shareuserList, description, id){
     console.log("ID: " + id);
     
 //    postModel.findOneAndUpdate({ _id: id }, 
@@ -90,7 +90,8 @@ function editPost(user, title, tagsList, picture, privacy, shareuserList, id){
         picture: picture,
         privacy: privacy,
         shareuser: shareuserList,
-        tags: tagsList 
+        tags: tagsList,
+        description: description
         
     }, function(err){
         

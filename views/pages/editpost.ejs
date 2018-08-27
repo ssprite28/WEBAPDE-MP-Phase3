@@ -153,6 +153,10 @@
         max-height: 200px;
     }
     
+        input[type=text]{
+        width:40%;
+    }
+    
     
     
 </style>
@@ -214,7 +218,13 @@ function onFileSelected(event) {
         <br/>
         <label>Share meme with:</label>
         <input type="text" name="shareuser" value='<%=data.post.shareuser%>'/>
+        
+        
         &emsp;
+        <br>
+        <br>
+        <label>Description: </label>
+        <input type="text" name="description" value='<%=data.post.description%>'/>
         <br>
         <br>
         <div><input type='submit' value='Edit Post'></div>

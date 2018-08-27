@@ -73,7 +73,38 @@ function PostModule(server){
       resp.render('./pages/createpost');
   });
     
+ server.get('/viewbig', function(req, resp){
+    var split = req.query.id.split(",");
+    
+    console.log("Picture: " +split[0]);
+    console.log("Title: " +split[1]);
+    var title = split[1];
+    var picture = split[0];
+    const data = {title:title, picture:picture};
+    if(err) return console.error(err);
+    callback();
+    postModel.viewMeme(title, picture);
+});
  
+//server.get('/viewbig', function(req, resp){
+//    var split = req.query.id.split(",");
+//    
+//    console.log("Picture: " +split[0]);
+//    console.log("Title: " +split[1]);
+//    
+//    const searchQuery = {title: split[1], picture: split[0]}
+//    
+//        postModel.findOne(searchQuery, function (err, post){
+//        if (post != undefined && post._id != null){
+//            const passData = { post: post };
+//            console.log("Id: " + post._id);
+//        }
+//            
+//        const passData = { post: post };
+//        resp.render('./pages/viewbig', {data: passData});
+//    });
+//});
+    
     
   server.post('/system-processing/createpost-result', function(req, resp){
 

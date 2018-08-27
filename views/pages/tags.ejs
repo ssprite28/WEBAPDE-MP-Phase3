@@ -160,11 +160,43 @@ a{
 .searchbtn{
     color: black;
 }
+    
+.username{
+    color:white;
+    float: right;
+    padding: 5px;
+    position: absolute;
+    right: 300px;
+    top: 16px;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+}
 
 
 </style>
 
 </head>
+    
+<% 
+    var login, loginhref, username, register, registerhref, usernamehref;
+    
+    if(user === undefined){
+        login = "Log in";
+        loginhref = "/";
+        username = "Guest";
+        register = "Register";
+        registerhref = "/register";
+        usernamehref = "/";
+    }else{
+        login = "Log out";
+        loginhref = "/logout";
+        username = "User: " + user;
+        register = "Profile";
+        registerhref = "/profile";
+        usernamehref = "/profile";
+    }
+%>
     
 <body>
 <div class="container">
@@ -173,8 +205,9 @@ a{
         <span><a href="/home" class="home">dankmems</a></span>
         <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
-        <span><a href="/" class="login">Log in</a></span>
-        <span><a href="/register" class="register" >Register</a></span>
+        <span><a href='<%=usernamehref%>' class="username"><%=username%></a></span>
+        <span><a href="<%=loginhref%>" class="login"><%=login%></a></span>
+        <span><a href="<%=registerhref%>" class="register" ><%=register%></a></span>
     </nav>
 </div>
 <div class="main">

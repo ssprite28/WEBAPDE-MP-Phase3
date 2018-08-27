@@ -232,13 +232,35 @@ footer h3 {
     font-size: 20px;
     text-decoration: none;
 }
+    
 
 </style>
-<script>
-  
-</script>
 </head>
+<%
+    var remove;
+    if(data.list.length <= 15){
+        remove= 'remove'
+    } else{
+        remove = 'seemore';
+        console.log("Length of list: " + data.list.length)
+    }
     
+    var publicPosts = 0;
+    
+    for(var x=0; x<data.list.length; x++){
+        if(data.list[x].privacy === 'Public'){
+            publicPosts++;
+        }
+            else if(data.list[x].privacy === 'Private' && data.list[x].shareuser != undefined && data.list[x].shareuser.includes(user)){
+                    publicPosts++;
+            } else if(data.list[x].privacy === 'Private' && data.list[x].shareuser != undefined && data.list[x].uploadedBy === user){
+                publicPosts++;
+            }
+            
+    }
+    
+    
+%>
 <body>
 <div class="container">
     <div class="header">
@@ -253,6 +275,7 @@ footer h3 {
     
 </div>
 <div class="main">
+    <%if(publicPosts <= 15) {%>
     <% for(var i=(data.list.length-1);i>=0;i--){ %>
        <% if (data.list[i].privacy === 'Public'){%>
          <%- include('./post', {
@@ -315,7 +338,74 @@ footer h3 {
     
 <% } %>
     </div>
-<% } %>   
+<% } %> 
+    <% } else{ %>
+        <% for(var i=(data.list.length-1);i>=(data.list.length-15);i--){ %>
+       <% if (data.list[i].privacy === 'Public'){%>
+         <%- include('./post', {
+            title: data.list[i].title,
+            picture: data.list[i].picture,
+            tags: data.list[i].tags,
+            uploadedBy: data.list[i].uploadedBy,
+            timestamp: data.list[i].timestamp,
+            likes: data.list[i].likes,
+            user: user,
+      }); %>
+        <% for(var j=(data.list[i].tags.length-1);j>=0;j--) { %>
+            <%- include('./tags-row', {
+                tag: data.list[i].tags[j],
+        }); %>
+    
+        <% } %>
+<!--    </div>-->
+        <% } else if (data.list[i].privacy === 'Private') {%>
+            <% console.log(data.list[i].shareuser) %>
+            
+            
+            <% if (data.list[i].shareuser != undefined && data.list[i].uploadedBy === user) { %>
+                <% console.log(data.list[i].title + " shareduser is " + data.list[i].shareuser) %>
+                <%- include('./post', {
+                title: data.list[i].title,
+                picture: data.list[i].picture,
+                tags: data.list[i].tags,
+                uploadedBy: data.list[i].uploadedBy,
+                timestamp: data.list[i].timestamp,
+                likes: data.list[i].likes,
+                user: user,
+                }); %>
+            <% for(var j=(data.list[i].tags.length-1);j>=0;j--) { %>
+                <%- include('./tags-row', {
+                    tag: data.list[i].tags[j],
+                }); %>
+            <% } %>
+<!--    </div>-->
+
+    
+          <% } else if (data.list[i].shareuser != undefined && data.list[i].shareuser.includes(user)) { %>
+            
+            <%- include('./post', {
+            title: data.list[i].title,
+            picture: data.list[i].picture,
+            tags: data.list[i].tags,
+            uploadedBy: data.list[i].uploadedBy,
+            timestamp: data.list[i].timestamp,
+            likes: data.list[i].likes,
+            user: user,
+      }); %>
+        <% for(var j=(data.list[i].tags.length-1);j>=0;j--) { %>
+            <%- include('./tags-row', {
+                tag: data.list[i].tags[j],
+        }); %>
+        <% } %>
+        
+    <% } %>
+    
+<% } %>
+    </div>
+<% } %> 
+    <% } %>
+    
+    <div class=<%=remove%>><a href="/view-all" class="seemoretxt">See More</a></div>  
     
 </div>
 </div>

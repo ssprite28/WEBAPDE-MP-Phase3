@@ -119,6 +119,17 @@ function PostModule(server){
         
     });
     
+    server.get('/view-all', function(req, resp){
+    postModel.viewPosts('temp',function(list){
+      const data = { list:list };
+      const user = req.session.user;
+        
+      console.log("Number of posts: " + data.list.length);
+        
+        resp.render('./pages/view-all', {data:data, user:user });
+    });
+  });
+
  server.get('/viewbig', function(req, resp){
     var split = req.query.id.split(",");
     
@@ -133,7 +144,10 @@ function PostModule(server){
         var passData = {post: post}
         const user = req.session.user;
         
-        resp.render('./pages/viewbig', {data: passData, user:user}); 
+
+    resp.render('./pages/viewbig', {data: passData, user:user});
+        
+         
     });
     
 });
@@ -156,38 +170,6 @@ function PostModule(server){
   server.get('/create-post', function(req, resp){
       resp.render('./pages/createpost');
   });
-    
- server.get('/viewbig', function(req, resp){
-    var split = req.query.id.split(",");
-    
-    console.log("Picture: " +split[0]);
-    console.log("Title: " +split[1]);
-    var title = split[1];
-    var picture = split[0];
-    const data = {title:title, picture:picture};
-    if(err) return console.error(err);
-    callback();
-    postModel.viewMeme(title, picture);
-});
- 
-//server.get('/viewbig', function(req, resp){
-//    var split = req.query.id.split(",");
-//    
-//    console.log("Picture: " +split[0]);
-//    console.log("Title: " +split[1]);
-//    
-//    const searchQuery = {title: split[1], picture: split[0]}
-//    
-//        postModel.findOne(searchQuery, function (err, post){
-//        if (post != undefined && post._id != null){
-//            const passData = { post: post };
-//            console.log("Id: " + post._id);
-//        }
-//            
-//        const passData = { post: post };
-//        resp.render('./pages/viewbig', {data: passData});
-//    });
-//});
     
     
   server.post('/system-processing/createpost-result', function(req, resp){

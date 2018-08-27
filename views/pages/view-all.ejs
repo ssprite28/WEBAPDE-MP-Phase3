@@ -229,18 +229,7 @@ footer h3 {
     text-decoration: none;
 }
     
-.remove {
-    display: none;    
-}
-
-.seemore{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 20px;
-    font-size: 20px;
-    font-family: "Comic Sans MS";
-}    
+  
 
 .seemoretxt{
     color:black;
@@ -248,25 +237,26 @@ footer h3 {
 
 </style>
 </head>
-<%
-    var remove;
-    if(data.list.length <= 15){
-        remove= 'remove'
-    } else{
-        remove = 'seemore';
-        console.log("Length of list: " + data.list.length)
+    
+<% 
+    var login, loginhref, username, register, registerhref, usernamehref;
+    
+    if(user === undefined){
+        login = "Log in";
+        loginhref = "/";
+        username = "Guest";
+        register = "Register";
+        registerhref = "/register";
+        usernamehref = "/";
+    }else{
+        login = "Log out";
+        loginhref = "/logout";
+        username = "User: " + user;
+        register = "Profile";
+        registerhref = "/profile";
+        usernamehref = "/profile";
     }
-    
-    var publicPosts = 0;
-    
-    for(var x=0; x<data.list.length; x++){
-        if(data.list[x].privacy === 'Public')
-            publicPosts++;
-    }
-    
-    
-    
-    %>
+%>
 <body>
 <div class="container">
 <div class="header">
@@ -274,13 +264,12 @@ footer h3 {
         <span><a href="/home" class="home">dankmems</a></span>
         <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
-        <span><a href='/' class="username">Guest</a></span>
-        <span><a href="/" class="login">Log in</a></span>
-        <span><a href="/register" class="register" >Register</a></span>
+        <span><a href='<%=usernamehref%>' class="username"><%=username%></a></span>
+        <span><a href="<%=loginhref%>" class="login"><%=login%></a></span>
+        <span><a href="<%=registerhref%>" class="register" ><%=register%></a></span>
     </nav>
 </div>
 <div class="main">
-    <%if(publicPosts <= 15){%>
         <% for(var i=(data.list.length-1);i>=0;i--){ %>
            <% if (data.list[i].privacy === 'Public'){%>
              <%- include('./post', {
@@ -302,36 +291,12 @@ footer h3 {
         </div>
             <% } %>
         <% } %>
-    <% } else {%>
-        <% for(var i=(data.list.length-1);i>=(data.list.length-15);i--){ %>
-           <% if (data.list[i].privacy === 'Public'){%>
-             <%- include('./post', {
-                title: data.list[i].title,
-                picture: data.list[i].picture,
-                tags: data.list[i].tags,
-                uploadedBy: data.list[i].uploadedBy,
-                timestamp: data.list[i].timestamp,
-                likes: data.list[i].likes,
-                user: undefined,
-          }); %>
-            <% for(var j=(data.list[i].tags.length-1);j>=0;j--) { %>
-                <%- include('./tags-row', {
-                    tag: data.list[i].tags[j],
-            }); %>
+    
 
-            <% } %>
-
-        </div>
-            <% } %>
-        <% } %>
-    <% } %>
-        
- <div class=<%=remove%>><a href="/view-all" class="seemoretxt">See More</a></div>  
     
     
     
     
-</div>
 </div>
 </body>
 </html>

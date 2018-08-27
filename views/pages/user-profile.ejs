@@ -64,7 +64,6 @@ img{
 }
 
 .title{
-    margin-left: 10px;
     font-size: x-large;
     font-weight: 700;
     font-family: sans-serif;
@@ -123,7 +122,7 @@ img{
     color:deepskyblue;
 }
 
-.logout{
+.login{
     color:white;
     float: right;
     padding: 5px;
@@ -135,7 +134,7 @@ img{
     text-decoration: none;
 }
 
-.logout:hover{
+.login:hover{
     cursor: pointer;
     color: gainsboro;
 }
@@ -157,7 +156,7 @@ label{
     padding: 10px;   
 }
 
-.profile {
+.register {
     max-height: 250px;
     max-width: 250px;
 }
@@ -197,6 +196,27 @@ img {
 
 </style>
 </head>
+    
+<% 
+    var login, loginhref, username, register, registerhref, usernamehref;
+    
+    if(user === undefined){
+        login = "Log in";
+        loginhref = "/";
+        username = "Guest";
+        register = "Register";
+        registerhref = "/register";
+        usernamehref = "/";
+    }else{
+        login = "Log out";
+        loginhref = "/logout";
+        username = "User: " + user;
+        register = "Profile";
+        registerhref = "/profile";
+        usernamehref = "/profile";
+    }
+%>
+    
 <body>
 <div class="container">
 <div class="header">
@@ -204,8 +224,9 @@ img {
         <span><a href="/home" class="home">dankmems</a></span>
         <span><a href="/home" class="trend">on firee</a></span>
         <span><a href="/tags" class="taglist">tags</a></span>
-        <span><a href="/logout" class="logout">Log out</a></span>
-        <span><a href="/profile" class="register">Profile</a></span>
+        <span><a href='<%=usernamehref%>' class="username"><%=username%></a></span>
+        <span><a href="<%=loginhref%>" class="login"><%=login%></a></span>
+        <span><a href="<%=registerhref%>" class="register" ><%=register%></a></span>
     </nav>
 </div>
 <div class="main">
@@ -215,14 +236,9 @@ img {
 </span>
     <div class='name'><h5>Date Registered: <%=months[data.list.dateRegistered.getMonth()]%> <%=data.list.dateRegistered.getDate()%>, <%=data.list.dateRegistered.getFullYear()%> </h5> </div>
 <span class='name'>
-<h4>Account Controls</h4>
-<form action='/create-post'>
-    <input type="submit" action='/create-post' value="Create Post"/>
-</form>
+
 <br>
-<form action='/edit-profile'>   
-    <input type ='submit' action='/edit-profile' value ='Edit Profile'/>
-</form>
+
 <br>
 </span> 
 
@@ -231,7 +247,7 @@ img {
     
 <h3>Their Posts:</h3>
     <% for(var i=(postData.length-1);i>=0;i--){ %>
-       <% if (postData[i].uploadedBy === data.list.user){%>
+       <% if (postData[i].uploadedBy === data.list.user && postData[i].privacy === 'Public'){%>
          <%- include('./post', {
             title: postData[i].title,
             picture: postData[i].picture,
@@ -253,7 +269,45 @@ img {
         </span>
     
     </div>
+        <% } else if(postData[i].uploadedBy === data.list.user && postData[i].privacy === 'Private') { %>
+        
+             <% if (postData[i].shareuser != undefined && postData[i].uploadedBy === user) { %>
+                <%- include('./post', {
+                title: postData[i].title,
+                picture: postData[i].picture,
+                tags: postData[i].tags,
+                uploadedBy: postData[i].uploadedBy,
+                timestamp: postData[i].timestamp,
+                likes: postData[i].likes,
+                user: user,
+                }); %>
+            <% for(var j=(postData[i].tags.length-1);j>=0;j--) { %>
+                <%- include('./tags-row', {
+                    tag: postData[i].tags[j],
+                }); %>
+            <% } %>
+<!--    </div>-->
+
+    
+          <% } else if (postData[i].shareuser != undefined && postData[i].shareuser.includes(user)) { %>
+            
+            <%- include('./post', {
+            title: postData[i].title,
+            picture: postData[i].picture,
+            tags: postData[i].tags,
+            uploadedBy: postData[i].uploadedBy,
+            timestamp: postData[i].timestamp,
+            likes: postData[i].likes,
+            user: user,
+      }); %>
+        <% for(var j=(postData[i].tags.length-1);j>=0;j--) { %>
+            <%- include('./tags-row', {
+                tag: postData[i].tags[j],
+        }); %>
         <% } %>
+        
+        <% } %>
+    <% } %>
     <% } %>
 
 <!--    <button><a href='/edit-description'></a>Edit Description</button>-->

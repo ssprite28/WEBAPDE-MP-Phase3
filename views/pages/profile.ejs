@@ -1,3 +1,17 @@
+<%
+var mine = 0;
+var remove;
+
+for (var k=0;k<postData.length;k++)
+    if (postData[k].uploadedBy === data.list.user)
+        mine++;
+
+if (mine > 0)
+    remove = 'remove';
+else 
+    remove = '';
+%>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -240,6 +254,8 @@ img {
     </div>
         <% } %>
     <% } %>
+    
+<h4 class='<%=remove%>'>Huwaw, nothing? Wanna post :3? </h4>
 
 <!--    <button><a href='/edit-description'></a>Edit Description</button>-->
  

@@ -157,6 +157,7 @@
         max-height: 200px;
     }
     
+<<<<<<< HEAD
     h1{
         display: flex;
         justify-content: center;
@@ -165,6 +166,10 @@
     input[type=submit]{
         float: right;
         width:20%;
+=======
+        input[type=text]{
+        width:40%;
+>>>>>>> f0684482a3787642a9cf8dfc16d205c592dd2ff8
     }
     
     
@@ -228,7 +233,13 @@ function onFileSelected(event) {
         <br/>
         <label>Share meme with:</label>
         <input type="text" name="shareuser" value='<%=data.post.shareuser%>'/>
+        
+        
         &emsp;
+        <br>
+        <br>
+        <label>Description: </label>
+        <input type="text" name="description" value='<%=data.post.description%>'/>
         <br>
         <br>
         <div><input type='submit' value='Edit Post'></div>
@@ -239,5 +250,3 @@ function onFileSelected(event) {
 </div>
 </body>
 </html>
-
-    

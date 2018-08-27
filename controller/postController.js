@@ -105,6 +105,25 @@ function PostModule(server){
         
     });
     
+ server.get('/viewbig', function(req, resp){
+    var split = req.query.id.split(",");
+    
+     
+    console.log("Picture: " +split[0]);
+    console.log("Title: " +split[1]);
+    var title = split[1];
+    var picture = split[0];
+    const data = {title:title, picture:picture};
+    
+    postModel.viewMeme(title, picture,function(post){
+        var passData = {post: post}
+        const user = req.session.user;
+        
+        resp.render('./pages/viewbig', {data: passData, user:user}); 
+    });
+    
+});
+    
     
     
   //For showing the create-post page      

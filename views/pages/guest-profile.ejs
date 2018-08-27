@@ -1,0 +1,272 @@
+<%
+var mine = 0;
+var remove;
+
+for (var k=0;k<postData.length;k++)
+    if (postData[k].uploadedBy === data.list.user)
+        mine++;
+
+if (mine > 0)
+    remove = 'remove';
+else 
+    remove = '';
+%>
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>dankmems: Memes are Dreams | Cyanide</title>
+<style>
+.header{
+    background-color: black;
+    box-shadow: 0 1px 0px rgba(0,0,0,.2);
+    height:50px;
+}
+
+html,body{
+    font: Helvetica Nueue;
+    font-family: sans-serif;
+    background-color: #E6ECF0;
+    height: 100%;
+    width: 100%;
+}
+
+img{
+    padding-top: 0px;
+    max-width: 650px;
+    max-height: 650px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.nav {
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.main{
+    background-color: white;
+    width: 1000px;
+    height: 100%;
+    margin: auto;
+    padding: 20px;  
+}
+
+.title{
+    margin-left: 10px;
+    font-size: x-large;
+    font-weight: 700;
+    font-family: sans-serif;
+    margin-top: 10px;
+}
+
+.home, .trend, .taglist{
+    margin: 10px;
+    font-size: 25px;
+    color: white;
+    position: absolute;
+    top: 5px;
+    font-family: "Comic Sans MS";
+    left: 150px;
+    text-decoration: none;
+}
+
+.home:hover, .taglist:hover, .trend:hover{
+    color:gainsboro;
+    cursor: pointer;
+}
+
+.trend{
+    left: 350px;
+}
+
+.taglist{
+       left: 550px;
+}
+
+.register{
+    color: white;
+    background-color: rgb(0, 110, 239);
+    padding: 9px 13px;
+    font-weight: bold;
+    position: absolute;
+    right: 15px;
+    top: 14px;
+    text-decoration: none;
+}
+
+.register:hover{
+    color: gainsboro;
+    cursor: pointer;
+}
+
+.tags{
+    color: dodgerblue;
+    font-weight: bold;
+    padding: 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tags:hover{
+    color:deepskyblue;
+}
+
+.logout{
+    color:white;
+    float: right;
+    padding: 5px;
+    position: absolute;
+    right: 130px;
+    top: 16px;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.logout:hover{
+    cursor: pointer;
+    color: gainsboro;
+}
+
+.post{
+    border-bottom: 0.5px #E6ECF0 solid;
+    padding: 20px;
+}
+
+label{
+    font-weight: bold;
+    padding: 10px;
+}
+
+.uploadmeme{
+    border-style: solid;
+    border-width: 1px;
+    display: inline-table;
+    padding: 10px;   
+}
+
+.profile {
+    max-height: 250px;
+    max-width: 250px;
+}
+    
+.description {
+/*
+    border-style: solid;
+    border-width: 1px;
+*/
+    text-indent: 10px;
+    padding: 0px;
+}
+    
+.allposts {
+    padding: 10px;
+    padding-top: 25px;
+}
+    
+.name {
+    text-align: center;    
+}
+    
+.buttons {
+        
+}
+    
+img {
+    max-width:400px;
+    max-height: 400px;
+}
+    
+.remove {
+    display: none;    
+}
+
+<% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <nav class="nav">
+        <span><a href="/home" class="home">dankmems</a></span>
+        <span><a href="/home" class="trend">on firee</a></span>
+        <span><a href="/tags" class="taglist">tags</a></span>
+        <span><a href="/login" class="logout">Log In</a></span>
+        <span><a href="/register" class="register">Register</a></span>
+    </nav>
+</div>
+<div class="main">
+<div class="info">
+<span class="name"><h1><%= data.list.user %></h1>
+    <div class="img"> <img class = 'profile' src= <%= data.list.picture %>> </div>
+</span>
+    <div class='name'><h5>Date Registered: <%=months[data.list.dateRegistered.getMonth()]%> <%=data.list.dateRegistered.getDate()%>, <%=data.list.dateRegistered.getFullYear()%> </h5> </div>
+<span class='name'>
+<h4>Account Controls</h4>
+<form action='/create-post'>
+    <input type="submit" action='/create-post' value="Create Post"/>
+</form>
+<br>
+<form action='/edit-profile'>   
+    <input type ='submit' action='/edit-profile' value ='Edit Profile'/>
+</form>
+<br>
+</span> 
+
+<h3>Short description:</h3>
+    <p class="description"><%= data.list.description %></p><br/>
+    
+<h3>Their Posts:</h3>
+    <% for(var i=(postData.length-1);i>=0;i--){ %>
+       <% if (postData[i].uploadedBy === data.list.user){%>
+         <%- include('./post', {
+            title: postData[i].title,
+            picture: postData[i].picture,
+            tags: postData[i].tags,
+            uploadedBy: postData[i].uploadedBy,
+            timestamp: postData[i].timestamp,
+            likes: postData[i].likes,
+            id: postData[i]._id,
+      }); %>
+        
+        <% for(var j=(postData[i].tags.length-1);j>=0;j--){ %>
+            <%- include('./tags-row', {
+                tag: postData[i].tags[j],
+        }); %>
+    
+        <% } %>
+        <span>
+        <br>
+        </span>
+    
+    </div>
+        <% } %>
+    <% } %>
+
+<!--    <button><a href='/edit-description'></a>Edit Description</button>-->
+ 
+
+
+    
+
+    
+
+
+</div>
+</div>
+</div>
+</body>
+</html>

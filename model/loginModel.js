@@ -81,8 +81,8 @@ function findUser(username, callback){
 module.exports.findUser = findUser;
 
 
-function editDescription(username, descript, callback){
-    loginModel.findOneAndUpdate({user: username}, {$set:{description: descript}}, {new:true}, function(err, doc){
+function editDescription(username, description, callback){
+    loginModel.findOneAndUpdate({user: username}, {$set:{description: description}}, {new:true}, function(err, doc){
         if(err){
             console.log("update went wrong");
         }

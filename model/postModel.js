@@ -42,16 +42,16 @@ function viewOne(id, title, callback){
 
 module.exports.viewOne = viewOne;
 
-function viewMeme(title, picture){
+function viewMeme(title, picture, callback){
     const searchQuery = {title: title, picture: picture}
     postModel.findOne(searchQuery, function (err, post){
         if (post != undefined && post._id != null){
             const passData = { post: post };
             console.log("Id: " + post._id);
         }
-            
-        const passData = { post: post };
-        resp.render('./pages/viewbig', {data: passData});
+       
+        if (err) return console.error(err);
+        callback(post);
     });
 }
 

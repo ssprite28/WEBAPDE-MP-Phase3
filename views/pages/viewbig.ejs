@@ -1,3 +1,5 @@
+
+
 <!--
 <div class = 'viewbig'>
     <div class="image">
@@ -5,6 +7,9 @@
     </div> 
 </div>
 -->
+<!DOCTYPE HTML>
+<html>
+<head>
 <style>
     .header{
     background-color: black;
@@ -38,7 +43,6 @@ html,body {
 
 .poster{
     font-family: sans-serif;
-    margin-left: 25px;
     height: 20px;
 }
 
@@ -47,9 +51,13 @@ label{
 }
 
 img{
+    height: 100%;
+    width: 100%;
     padding-top: 20px;
-    max-width: 650px;
-    max-height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    margin: auto;
 }
 
 .main{
@@ -58,8 +66,7 @@ img{
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    object-fit:contain;
     margin: auto;
 }
 
@@ -101,7 +108,6 @@ footer{
     background-color: white;
 }
 
-
 .home, .trend, .taglist{
     margin: 10px;
     font-size: 25px;
@@ -116,9 +122,6 @@ a{
     text-decoration: none;
 }
     
-
-
-
 .trend{
     left: 350px;
 }
@@ -168,12 +171,10 @@ a{
 
 
 .post{
-    border-bottom: 0.5px #E6ECF0 solid;
     padding: 20px;
 }
 
 .title{
-    margin-left: 10px;
     font-size: x-large;
     font-weight: 700;
     font-family: sans-serif;
@@ -189,26 +190,74 @@ footer h3 {
   font-weight: 100;
   margin-bottom: 0;
 }
-.pink{color: pink;}
-.red{color: red;}
-.orange{color: orange;}
-.green{color: green;}
-</style>
-<body>
-<div class='post'>
-    <div>
-        <span class='title'><%=data.post.title%></span>
-    </div>
-    <div>
-        <br/>
-        <span class='poster'>User</span>
 
+</style>
+<script>
+function goBack(){
+    window.history.back();
+}    
+</script>
+</head>
+
+<% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+   var minutes;
+
+   if (data.post.timestamp.getMinutes() < 10)
+       minutes = '0' + data.post.timestamp.getMinutes();
+   else
+       minutes = data.post.timestamp.getMinutes();
+
+var remove;
+if(user != undefined){
+    if (data.post.uploadedBy === user)
+        remove = 'remove';
+    else {
+        remove = '';
+        console.log("User in post: " + user);
+    } 
+}
+
+
+//so that users cannot like their own posts
+
+
+%>
+
+<body>
+<div class="container">
+    <div class="header">
+        <nav class="nav">
+            <span><a href="/home" class="home">dankmems</a></span>
+            <span><a href="/home" class="trend">on firee</a></span>
+            <span><a href="/tags" class="taglist">tags</a></span>
+            <span><a href="/" class="login">Log in</a></span>
+            <span><a href="/register" class="register" >Register</a></span>
+        </nav>
     </div>
+    <div class="main">
+        <div class='post'>
+            <div>
+                <span class='title'><%=data.post.title%></span>
+            </div>
+            <div>
+            <br/>
+            <span class='poster'>by: <a href='/user-profile?id=<%=data.post.uploadedBy %>' onclick="goBack()"><%=data.post.uploadedBy%></a></span>
+
+            </div>
+            <div>
+                <span class = 'timestamp'>Published on <%=months[data.post.timestamp.getMonth()]%> <%=data.post.timestamp.getDate()%>, <%=data.post.timestamp.getFullYear()%> at <%=data.post.timestamp.getHours()%>:<%=minutes%> </span>
+            </div>
     <div>
-        <a href ="/">
-            <img id='<%=data.post.picture %>' src = 'images/<%=data.post.picture %>'/></a>
+            <img id='<%=data.post.picture %>' src = 'upload/<%=data.post.picture %>'/>
     </div>
-    
+    <br/>
+    <div>
+        <span class=<%=remove%>><input class='bottombutton' type="button" value='Like'></span>
+        <span><input type="button" class='bottombuttons' value='Share'></span>
+        <span><input type="button" class='lastbutton' value='Comment'></span>
+    </div>
+    <br><span class='likes'>Likes: <%=data.post.likes%></span><br>
     <label>Tags:</label>
     
             <% for(var j=0;j<data.post.tags.length;j++) { %>
@@ -217,4 +266,8 @@ footer h3 {
         }); %>
     
         <% } %>
-<body>
+        </div>
+    </div>
+</div>
+</body>
+</html>

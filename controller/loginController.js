@@ -77,7 +77,15 @@ function LoginModule(server){
           postData = list;
           user = search;
           
-          resp.render('./pages/user-profile', { data: data, postData: postData, user:user });
+          if(req.session.user == search){
+              resp.render('./pages/profile', { data: data, postData: postData, user:user });
+          }else if(req.session.user === undefined){
+              resp.render('./pages/guest-profile', { data: data, postData: postData, user:user });
+          }
+          else{
+              resp.render('./pages/user-profile', { data: data, postData: postData, user:user });
+          }
+          
       });
 
   });

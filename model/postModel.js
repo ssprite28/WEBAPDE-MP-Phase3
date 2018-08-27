@@ -34,9 +34,11 @@ function viewPosts(username, callback){
 module.exports.viewPosts = viewPosts;
 
 function deletePost(id){
+    console.log("Id to delete: " + id);
     postModel.deleteOne({ _id: id }, function (err) {});
 
 }
+
 
 module.exports.deletePost = deletePost;
 

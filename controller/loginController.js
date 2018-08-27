@@ -40,7 +40,7 @@ function LoginModule(server){
     
   server.get('/profile', function(req, resp){
       
-  var postData, data;
+  var postData, data, user;
       
       loginModel.findUser(req.session.user, function(list){
          data = {list:list}
@@ -48,7 +48,8 @@ function LoginModule(server){
       
       postModel.viewPosts(req.session.user, function(list){
           postData = list;
-          resp.render('./pages/profile', { data: data, postData: postData });
+          user = req.session.user;
+          resp.render('./pages/profile', { data: data, postData: postData, user:user });
       });
       
       

@@ -1,5 +1,18 @@
 
-<% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+<% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
+
+var remove;
+if (uploadedBy === user)
+    remove = 'remove';
+else {
+    remove = '';
+    console.log("User in post: " + user);
+}
+
+//so that users cannot like their own posts
+
+
+%>
 
 <div class='post'>
     <div>
@@ -21,7 +34,11 @@
             <img id='<%=picture %>' src ='./upload/<%=picture %>'/></a>
     </div>
     
-    <div><input class='bottombutton' type="button" value='Like'><input type="button" class='bottombuttons' value='Share'><input type="button" class='lastbutton' value='Comment'></div>
+    <div>
+        <span class=<%=remove%>><input class='bottombutton' type="button" value='Like'></span>
+        <span><input type="button" class='bottombuttons' value='Share'></span>
+        <span><input type="button" class='lastbutton' value='Comment'></span>
+    </div>
     <br><span class='likes'>Likes: <%=likes%></span><br>
     <label>Tags:</label>
 

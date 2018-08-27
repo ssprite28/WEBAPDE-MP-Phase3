@@ -238,8 +238,9 @@ function PostModule(server){
                 var user = req.session.user;
                 var pic = files.picture.name;
                 var privacy = fields.privacy;
+                var description = fields.description;
                 
-                postModel.editPost(user, title, allTags, pic, privacy, allShared, id);
+                postModel.editPost(user, title, allTags, pic, privacy, allShared, description, id);
                 resp.redirect('/profile');
           });//rename
           

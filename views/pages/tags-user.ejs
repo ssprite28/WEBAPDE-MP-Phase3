@@ -189,10 +189,19 @@ a{
     </div>
     <div>
         <label>All Tags:</label>
+        <% var duplicate = false; %>
         <% for(var j=0;j<data.list.length;j++) { %>
+            <%for(var i=0; i<j; i++) {%>
+                <%if(data.list[j].body === data.list[i].body) {%>
+                    <%duplicate = true%>
+                <%}%>
+            <%}%>
+            <%if(duplicate === false) {%>
             <%- include('./tags-row', {
-                tag: data.list[j].body,
-        }); %>
+                    tag: data.list[j].body,
+                }); %>
+            <%}%>
+            <%duplicate = false;%>
          <% } %>
     </div>
     <div>

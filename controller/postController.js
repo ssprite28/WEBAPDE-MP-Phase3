@@ -14,6 +14,8 @@ function PostModule(server){
       const data = { list:list };
       const user = req.session.user;
         
+      console.log("Number of posts: " + data.list.length);
+        
       if (req.session.user === undefined)
           resp.render('./pages/home', {data:data});
           
@@ -66,30 +68,37 @@ function PostModule(server){
         var arr1 = new Array();
         
         console.log("req.query.id: " + req.query.id);
-        console.log("search[0]: " + search[0]);
-        console.log("search[1]: " +search[1]);
+        console.log("search[0]: " + search[0]); //post id
+        console.log("search[1]: " +search[1]); //title
         
-        postModel.viewPosts(req.session.user, function(list){
+        postModel.viewPosts('temp', function(list){
             data = { list:list };
+            console.log("Data.list: " + data.list.length);
             
-            console.log("List length: " + list.length);
-            
-            for (var i=0;i<list.length;i++){
-                if (list[i]._id === search[0])
-                    arr1.push(list[i]);
-                 console.log("List [" + i + "] : " + list[i]);
+            for (var i=0;i<data.list.length;i++){
+                console.log("Data ID: " + data.list[i]._id);
+                if (data.list[i]._id == search[0]){
+                    arr1.push(list[i]); //push the post with the same id
+                    
+                }
             }
-                
-            console.log("New list length: " + list.length);
+            
+            console.log("Data.list: " + data.list.length);
+            console.log("Arr1 Length: " + arr1.length);
+            
+            if (arr1.length > 0){
+                console.log("arr1[0].tags: " + arr1[0].tags);
+                console.log("arr1[0].title: " + arr1[0].title);
+                tagModel.deleteTag(arr1[0].title);
+            }
+            
+            postModel.deletePost(search[0]); 
             
         });
         
+
         
-//        for (var i=0;i<data.post.tags.length;i++)
-//            tagModel.deleteTag(data.post.tags[i].body, data.post.tags[i].title);
-        
-        
-        postModel.deletePost(search[0]) 
+
             resp.redirect('/profile'); 
         
         

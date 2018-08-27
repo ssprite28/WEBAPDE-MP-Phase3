@@ -45,14 +45,26 @@ function addTag(username, tag, parent, callback){
 
 module.exports.addTag = addTag;
 
-function deleteTag(body, parentPostID){
-    var data;
-    const searchQuery = {body:body, parentPostID: parentPostID}
-    tagModel.findOne(searchQuery, function (err, tag){
-        data = {tag: tag};
+function deleteTag(parentPostID){
+    
+    console.log("parentPostId: " + parentPostID);
+
+    tagModel.find({}, function (err, list) { //find the tags that are under the title 'parentPostID' from the tag model
+        if (err) return console.error(err);
+        
+        const data = {list: list};
+        console.log(data);
+        
+        for (var j=0;j<data.list.length;j++)
+            if (data.list[j].parentPostID === parentPostID){
+                console.log("ID: " + data.list[j]._id);
+                console.log("Delete : " + data.list[j].body + " from " + data.list[j].parentPostID);
+                tagModel.deleteOne({_id: data.list[j]._id}, function (err) {});
+                
+            }
     });
     
-    tagModel.deleteOne({_id: data.tag.id }, function (err) {});
+    
     
 }
 

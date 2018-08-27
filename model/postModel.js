@@ -49,11 +49,9 @@ function viewMeme(title, picture){
 module.exports.viewMeme = viewMeme;
 
 function deletePost(id){
-    console.log("Id to delete: " + id);
     postModel.deleteOne({ _id: id }, function (err) {});
 
 }
-
 
 module.exports.deletePost = deletePost;
 

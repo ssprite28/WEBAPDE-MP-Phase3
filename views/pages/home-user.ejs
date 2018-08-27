@@ -217,9 +217,6 @@ footer h3 {
   font-size: 12px;      
 }   
 
-.remove {
-    display: none;    
-}
 
 </style>
 <script>
@@ -249,7 +246,6 @@ footer h3 {
             uploadedBy: data.list[i].uploadedBy,
             timestamp: data.list[i].timestamp,
             likes: data.list[i].likes,
-            user: user,
       }); %>
         <% for(var j=0;j<data.list[i].tags.length;j++) { %>
             <%- include('./tags-row', {

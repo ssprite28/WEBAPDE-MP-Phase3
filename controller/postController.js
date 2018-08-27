@@ -11,15 +11,12 @@ function PostModule(server){
   server.get('/home', function(req, resp){
     postModel.viewPosts('temp',function(list){
       const data = { list:list };
-      const user = req.session.user;
         
       if (req.session.user === undefined)
           resp.render('./pages/home', {data:data});
           
-      else {
-          resp.render('./pages/home-user',{ data:data, user:user });
-          console.log("User: " + user);
-      }
+      else
+          resp.render('./pages/home-user',{ data:data });
     });
   });
     
@@ -60,7 +57,6 @@ function PostModule(server){
     
     server.post('/delete-post', function(req, resp){
         var search = req.query.id;
-        console.log("req.query.id: " + req.query.id);
         postModel.deletePost(search) 
             resp.redirect('/profile'); 
         

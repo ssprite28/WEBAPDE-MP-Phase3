@@ -197,7 +197,7 @@ function PostModule(server){
               });
               }
               
-               postModel.createPost(req.session.user, fields.title, allTags, files.picture.name, new Date(), fields.privacy, allShared, function(list){
+               postModel.createPost(req.session.user, fields.title, allTags, files.picture.name, new Date(), fields.privacy, allShared, fields.description, function(list){
                     const data = {list: list};
                     resp.redirect('/home');               
                 });//createPost

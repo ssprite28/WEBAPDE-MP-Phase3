@@ -10,6 +10,7 @@ const postSchema = new mongoose.Schema({
     timestamp: { type: Date },
     privacy: { type: String },
     shareuser: [ { type: String } ],
+    description: { type: String },
 },{ versionKey: false });
 
 const postModel = mongoose.model('post', postSchema);
@@ -105,7 +106,7 @@ function editPost(user, title, tagsList, picture, privacy, shareuserList, id){
 
 module.exports.editPost = editPost;
 
-function createPost(user, title, tagsList, picture, timestamp, privacy, shareuserList, callback){
+function createPost(user, title, tagsList, picture, timestamp, privacy, shareuserList, description,  callback){
   const postInstance = postModel({
       uploadedBy: user,
       title: title,
@@ -116,7 +117,7 @@ function createPost(user, title, tagsList, picture, timestamp, privacy, shareuse
       timestamp: timestamp,
       privacy: privacy,
       shareuser: shareuserList,
-      
+      description: description,
     });
 
     //save tags to tags table also

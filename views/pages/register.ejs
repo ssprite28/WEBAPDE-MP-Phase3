@@ -81,6 +81,9 @@ html,body{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    background-image: url("./imgs/background.jpeg");
+    height: 100%;
+    
 }
 
 .main{
@@ -94,7 +97,7 @@ html,body{
     padding: 25px;
 }
 
-.home{
+.home, .trend, .taglist{
     margin: 10px;
     font-size: 25px;
     color: white;
@@ -105,9 +108,17 @@ html,body{
     text-decoration: none;
 }
 
-.home:hover{
+.home:hover, .taglist:hover, .trend:hover, .footerlist:hover{
     color:gainsboro;
     cursor: pointer;
+}
+    
+.trend{
+    left: 350px;
+}
+
+.taglist{
+       left: 550px;
 }
 
 .register{
@@ -153,6 +164,18 @@ html,body{
     cursor: pointer;
     color: gainsboro;
 }
+    
+.username{
+    color:white;
+    float: right;
+    padding: 5px;
+    position: absolute;
+    right: 280px;
+    top: 16px;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+}
 
 </style>
 </head>
@@ -161,21 +184,24 @@ html,body{
 <div class="header">
     <nav class="nav">
         <span><a href="/home" class="home">dankmems</a></span>
+         <span><a href="/home" class="trend">on firee</a></span>
+        <span><a href="/tags" class="taglist">tags</a></span>
+        <span><a href='/' class="username">Guest</a></span>
         <span><a href="/" class="login">Log in</a></span>
         <span><a href="/register" class="register" >Register</a></span>
     </nav>
 </div>
-</div>
+
 <div class="main">
 <h2>Register</h2>
 <form name="register" action="system-processing/register-result" method="post">
         <label>Username:</label>
-        <input type="text" name="user"/>
+        <input type="text" name="user" required/>
         <label class="required">*Required</label>
         <br/>
         <br/>
 <label>Password:</label>
-    <input type="password" name="pass"/>
+    <input type="password" name="pass" required/>
 <label class="required">*Required</label>
     <br/>
     <br/>
@@ -186,6 +212,7 @@ html,body{
 <br/>
     <input type="submit" value="Register"/>
 </form>
+</div>
 </div>
 </body>
 </html>

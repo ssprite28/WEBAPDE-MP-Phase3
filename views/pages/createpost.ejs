@@ -19,16 +19,22 @@
         display: flex;
         flex-direction: row;
     }
+    
     .container{
         display: flex;
         justify-content: center;
         flex-direction: column;
+        background-image: url("./imgs/background.jpeg")
     }
 
     .main{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         background-color: white;
         width: 1000px;
-        height: 110%;
+        height: 95%;
         margin: auto;
         padding: 20px;
     
@@ -43,8 +49,8 @@
     }
     
     .uploadmeme{
-        border-style: solid;
-        border-width: 1px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
         display: inline-table;
         padding: 10px;   
 
@@ -153,10 +159,21 @@
     }
     
     input[type=text]{
-        width:40%;
+        width:63%;
     }
     
+    h1{
+        display: flex;
+        justify-content: center;
+    }
     
+    input[type=submit]{
+        float: right;
+    }
+    
+    .right{
+        float:right;
+    }
     
 </style>
 <script>
@@ -190,19 +207,15 @@ function onFileSelected(event) {
 </div>
 <div class="main">
 <div class="info">
-    <span><h1>CREATE POST</h1></span>
+    <span><h1>Post a Meme ( ͡° ͜ʖ ͡°)</h1></span>
 <div class="uploadmeme">
     <form name="create-post" action="/system-processing/createpost-result" method="post" enctype="multipart/form-data">
         <span>Preview</span>
         <div><img id='myimage'/></div>
-        <div><input type="file" onchange='onFileSelected(event)' class="upload" name="picture"/></div>
+        <div>&emsp; &emsp;<input type="file" onchange='onFileSelected(event)' class="upload" name="picture"/></div>
         <br>
         <span><label>Dank title:</label> <input type="text" name="title"/></span>
-        &emsp;
-<!--
-        <span><input type="radio" name="privacy" value="Public" checked="checked">Public</span>
-        <span><input type="radio" name="privacy" value="Private">Private</span>
--->
+
         <br>
         <br>
         <div class = "privacy">
@@ -216,12 +229,13 @@ function onFileSelected(event) {
         
         <br/>
         <label>Share meme with:</label>
-        <input type="text" name="shareuser"/>
+        <input type="text" class="right" name="shareuser"/>
 
         <br/>
         <br/>
-        <label>Description: </label>
-        <input type="text" name="description"/>
+        <label>Description:  </label>
+        <input type="text" class="right" name="description"/>
+        <br>
         <br>
         <br>
         <div><input type='submit' value='Upload Meme'></div>

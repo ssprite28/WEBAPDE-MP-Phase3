@@ -1,4 +1,3 @@
-
 <html>
 <style>
     .header{
@@ -24,12 +23,17 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
+        background-image: url("./imgs/background.jpeg");
     }
 
     .main{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         background-color: white;
         width: 1000px;
-        height: 100%;
+        height: 95%;
         margin: auto;
         padding: 20px;
     
@@ -44,15 +48,15 @@
     }
     
     .uploadmeme{
-        border-style: solid;
-        border-width: 1px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
         display: inline-table;
         padding: 10px;   
 
     }
     
     input[type=text]{
-        width: 20%;
+        width: 60%;
     }
     
     label{
@@ -153,6 +157,16 @@
         max-height: 200px;
     }
     
+    h1{
+        display: flex;
+        justify-content: center;
+    }
+    
+    input[type=submit]{
+        float: right;
+        width:20%;
+    }
+    
     
     
 </style>
@@ -187,7 +201,7 @@ function onFileSelected(event) {
 </div>
 <div class="main">
 <div class="info">
-    <span><h1>EDIT POST</h1></span>
+    <span><h1>Edit Meme Post ◔_◔</h1></span>
 <div class="uploadmeme">
     <form name="edit-post" action="/system-processing/editpost-result?id=<%=data.post._id %>" method="post" enctype="multipart/form-data">
         <span>Preview</span>

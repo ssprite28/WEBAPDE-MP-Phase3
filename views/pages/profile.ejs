@@ -227,9 +227,9 @@ img {
 </span> 
 
 <h3>Short description:</h3>
-    <p class="description"><%= data.description %></p><br/>
+    <p class="description"><%= data.list.description %></p><br/>
 <h3>Your Posts: Time to Share or Edit them!</h3>
-    <% for(var i=0;i<postData.length;i++){ %>
+    <% for(var i=(postData.length-1);i>=0;i--){ %>
        <% if (postData[i].uploadedBy === data.list.user){%>
          <%- include('./post', {
             title: postData[i].title,
@@ -241,7 +241,7 @@ img {
             id: postData[i]._id,
       }); %>
         
-        <% for(var j=0;j<postData[i].tags.length;j++) { %>
+        <% for(var j=(postData[i].tags.length-1);j>=0;j--){ %>
             <%- include('./tags-row', {
                 tag: postData[i].tags[j],
         }); %>

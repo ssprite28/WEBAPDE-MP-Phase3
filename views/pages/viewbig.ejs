@@ -211,6 +211,10 @@ footer h3 {
     font-size: 20px;
     text-decoration: none;
 }
+    
+.remove {
+     display: none;   
+}
 
 </style>
 <script>
@@ -229,14 +233,21 @@ function goBack(){
    else
        minutes = data.post.timestamp.getMinutes();
 
-var remove;
+var remove, remove2;
 if(user != undefined){
-    if (data.post.uploadedBy === user)
+    if (data.post.uploadedBy === user){
         remove = 'remove';
+        remove2 = '';
+    }
     else {
-        remove = '';
+        remove = ''
+        remove2 = 'remove';
         console.log("User in post: " + user);
     } 
+}
+else if (user === undefined){
+    remove = '';
+    remove2 = 'remove'
 }
 
 var login, loginhref, username, register, registerhref, usernamehref;
@@ -290,9 +301,14 @@ var login, loginhref, username, register, registerhref, usernamehref;
     </div>
     <br/>
     <div>
+    <form name='add-Tags' action='add-Tags?id=<%data.post._id%>' method='post'>
         <span class=<%=remove%>><input class='bottombutton' type="button" value='Like'></span>
         <span><input type="button" class='bottombuttons' value='Share'></span>
         <span><input type="button" class='lastbutton' value='Comment'></span>
+        <span class=<%=remove2%>><label>Add Tags</label></span>
+        <span class=<%=remove2%>><input type='text'></span>
+        <span class=<%=remove2%>><input type='submit' value='Submit'></span>
+    </form>
     </div>
     <br><span class='likes'>Likes: <%=data.post.likes%></span><br>
     <label>Tags:</label>

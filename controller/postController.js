@@ -251,6 +251,23 @@ function PostModule(server){
       });//parse
       
   });
+    
+  server.post('/add-tags', function(req, resp){
+      
+      const id = req.query.id;
+      const tags = req.body.tags;
+      console.log(tags);
+      
+      var data;
+      
+      postModel.viewOne(id, function(post) {
+           data = {post:post}
+       });
+      
+      
+      
+      
+  });
       
   
 }

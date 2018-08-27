@@ -1,10 +1,11 @@
 const postModel = require('../model/postModel');
+const tagModel = require('../model/tagModel');
 const formidable = require('formidable');
 const fs = require('fs');
 const mv = require('mv');
 //const invetoryModel = require('../model/invetoryModel');
 
-const tagModel = require('../model/tagModel');
+
 
 function PostModule(server){
   
@@ -59,10 +60,37 @@ function PostModule(server){
     });
     
     server.post('/delete-post', function(req, resp){
-        var search = req.query.id;
+        var search = req.query.id.split(",");
+        var data;
+        var arr1 = new Array();
+        
         console.log("req.query.id: " + req.query.id);
-        postModel.deletePost(search) 
+        console.log("search[0]: " + search[0]);
+        console.log("search[1]: " +search[1]);
+        
+        postModel.viewPosts(req.session.user, function(list){
+            data = { list:list };
+            
+            console.log("List length: " + list.length);
+            
+            for (var i=0;i<list.length;i++)
+                if (list[i]._id === search[0])
+                    arr1.push(list[i]);
+                
+                console.log("List " + i + " : " + list[i]);
+           
+            
+        });
+        
+        
+//        for (var i=0;i<data.post.tags.length;i++)
+//            tagModel.deleteTag(data.post.tags[i].body, data.post.tags[i].title);
+        
+        
+        postModel.deletePost(search[0]) 
             resp.redirect('/profile'); 
+        
+        
         
     });
     

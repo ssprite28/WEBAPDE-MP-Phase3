@@ -240,7 +240,7 @@ footer h3 {
     
 </div>
 <div class="main">
-    <% for(var i=0;i<data.list.length;i++){ %>
+    <% for(var i=(data.list.length-1);i>=0;i--){ %>
        <% if (data.list[i].privacy === 'Public'){%>
          <%- include('./post', {
             title: data.list[i].title,
@@ -251,7 +251,7 @@ footer h3 {
             likes: data.list[i].likes,
             user: user,
       }); %>
-        <% for(var j=0;j<data.list[i].tags.length;j++) { %>
+        <% for(var j=(data.list[i].tags.length-1);j>=0;j--) { %>
             <%- include('./tags-row', {
                 tag: data.list[i].tags[j],
         }); %>

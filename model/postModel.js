@@ -33,6 +33,15 @@ function viewPosts(username, callback){
 
 module.exports.viewPosts = viewPosts;
 
+function viewOne(id, title, callback){
+    const searchQuery = {title: title, _id : id}
+    postModel.findOne(searchQuery, function (err, post){
+         callback(post);             
+    });
+}
+
+module.exports.viewOne = viewOne;
+
 function viewMeme(title, picture){
     const searchQuery = {title: title, picture: picture}
     postModel.findOne(searchQuery, function (err, post){

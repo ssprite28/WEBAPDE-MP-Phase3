@@ -45,6 +45,19 @@ function addTag(username, tag, parent, callback){
 
 module.exports.addTag = addTag;
 
+function deleteTag(body, parentPostID){
+    var data;
+    const searchQuery = {body:body, parentPostID: parentPostID}
+    tagModel.findOne(searchQuery, function (err, tag){
+        data = {tag: tag};
+    });
+    
+    tagModel.deleteOne({_id: data.tag.id }, function (err) {});
+    
+}
+
+module.exports.deleteTag = deleteTag;
+
 function viewTags(callback){
   //Aggregate is the closest thing in Mongo to Join in SQL
   tagModel.aggregate([

@@ -228,7 +228,7 @@ img {
 
 <h3>Short description:</h3>
     <p class="description"><%= data.description %></p><br/>
-<h3>Your Posts</h3>
+<h3>Your Posts: Time to Share or Edit them!</h3>
     <% for(var i=0;i<postData.length;i++){ %>
        <% if (postData[i].uploadedBy === data.list.user){%>
          <%- include('./post', {
@@ -247,9 +247,15 @@ img {
         }); %>
     
         <% } %>
-        <form action='/delete-post?id=<%=postData[i]._id%>' method='post'>
+        <span>
+        <form action='/delete-post?id=<%=postData[i]._id%>, <%=postData[i].title%>' method='post'>
             <input id='<%=postData[i]._id%>' type='submit' value='Delete Post'>
         </form>
+        <br>
+        <form>
+            <input id='<%=postData[i]._id%>' type='submit' value='Edit Post'>
+        </form>
+        </span>
     
     </div>
         <% } %>

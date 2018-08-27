@@ -66,6 +66,37 @@ function deletePost(id){
 
 module.exports.deletePost = deletePost;
 
+
+function editPost(user, title, tagsList, picture, privacy, shareuserList, id, callback){
+    console.log("ID to edit: " + id);
+    
+//    postModel.findById(id, function (err, post){
+//        if (err) return err;
+//        
+//        post.title = title;
+//        post.tags = tagsList;
+//        post.picture = picture;
+//        post.privacy = privacy;
+//        post.shareuser = shareuserList;
+//        
+//        post.save(function (err, updatedPost){
+//            if (err) return err;
+//        });
+//        
+//        console.log("Edited");
+//        
+//    });
+    
+    
+     console.log(title);
+     console.log(picture);
+    
+    
+    
+}
+
+module.exports.editPost = editPost;
+
 function createPost(user, title, tagsList, picture, timestamp, privacy, shareuserList, callback){
   const postInstance = postModel({
       uploadedBy: user,

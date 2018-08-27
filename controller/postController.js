@@ -124,6 +124,10 @@ function PostModule(server){
     
 });
     
+ server.post('/edit-post', function(req, resp){
+     resp.render('./pages/editpost');
+ });
+    
     
     
   //For showing the create-post page      
@@ -198,6 +202,58 @@ function PostModule(server){
       });//parse
       
   });
+    
+  server.post('/system-processing/editpost-result', function(req, resp){
+
+      var form = new formidable.IncomingForm();
+      form.parse(req, function (err, fields, files) {
+          var editID;
+          var oldpath = files.picture.path;
+          var newpath = __dirname + '/../public/upload/' + files.picture.name;
+//          fs.rename(oldpath, newpath, function (err) {
+
+            mv(oldpath, newpath, function(err) {
+              console.log('file transfer started');
+              if (err) throw err;
+                        
+              var Tags = fields.tags;
+              var allTags = Tags.split(',');
+
+              var Shared = fields.shareuser;
+              var allShared = Shared.split(',');
+                
+              postModel.viewPosts('temp',function(list){
+                const data = { list:list };
+                const user = req.session.user;
+        
+                console.log("Number of posts: " + data.list.length);
+                  
+                for (var i=0;i<data.list.length;i++){
+                    if (data.list[i].title === fields.title && data.list[i].picture === files.picture.name && data.list[i].uploadedBy === req.session.user)
+                        editID = data.list[i]._id;
+                }
+                  
+                    postModel.editPost(req.session.user, fields.title, allTags, files.picture.name, new Date(), fields.privacy, allShared,  editID, function(list){
+                    const data = {list: list};
+                    resp.redirect('/home');
+  
+                });
+
+
+//              for (var i=0;i<allTags.length;i++){
+//              tagModel.addTag(req.session.user, allTags[i], fields.title, function(list){
+//                  const data = {list:list};
+//              });
+//              }
+
+                });//createPost
+              
+          });//rename
+      });//parse
+      
+  });
+      
+  
 }
 
 module.exports.Activate = PostModule;

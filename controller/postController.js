@@ -39,12 +39,13 @@ function PostModule(server){
             console.log("Arr1: " + arr1[0]);
             
             const data = {list:arr1};
+            const user = req.session.user;
             
             
             if (req.session.user === undefined)
                 resp.render('./pages/home', {data:data});
             else
-                resp.render('./pages/home-user',{ data:data });
+                resp.render('./pages/home-user',{ data:data, user:user });
         
         
         });
@@ -73,12 +74,13 @@ function PostModule(server){
             
             console.log("List length: " + list.length);
             
-            for (var i=0;i<list.length;i++)
+            for (var i=0;i<list.length;i++){
                 if (list[i]._id === search[0])
                     arr1.push(list[i]);
+                 console.log("List [" + i + "] : " + list[i]);
+            }
                 
-                console.log("List " + i + " : " + list[i]);
-           
+            console.log("New list length: " + list.length);
             
         });
         

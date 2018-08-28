@@ -46,9 +46,12 @@ function PostModule(server){
             if (req.session.user === undefined)
                 resp.render('./pages/home', {data:data});
             else
-                resp.render('./pages/home-user',{ data:data, user:user });
-        
-        
+                resp.render('./pages/home',{ data:data, user:user });
+         
+//            if (search.charAt(0) === ' ')
+//                resp.redirect('/link-tags?id=' + search);
+//            else
+//                resp.redirect('/link-tags?id=' + search);
         });
     });
     

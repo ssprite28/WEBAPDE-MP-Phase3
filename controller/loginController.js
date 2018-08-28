@@ -94,10 +94,21 @@ server.get('/system-processing/edit-profile', function(req, resp){
   server.post('/system-processing/login-authentication', function(req, resp){
     loginModel.checkLogin(req.body.user,req.body.pass,function(result){
       if(result) {
+          
+        console.log("Remember Me: " + req.body.rememberme);
+        var remember = req.body.remember;
+          
+
 
         req.session.user = req.body.user; 
         console.log(req.session);
         console.log(req.session.user);
+          
+        if (remember){
+            var hour = 3600000
+            req.session.cookie.expires = new Date(Date.now() + hour)
+            req.session.cookie.maxAge = 100 * hour
+        }
           
         resp.redirect('/home');
       }

@@ -99,8 +99,14 @@ server.get('/system-processing/edit-profile', function(req, resp){
     loginModel.checkLogin(req.body.user,req.body.pass,function(result){
       if(result) {
           
+        var remember;
+          
         console.log("Remember Me: " + req.body.rememberme);
-        var remember = req.body.remember;
+          
+        if (req.body.rememberme === 'on')
+            remember = true;
+        else
+            remember = false;
           
 
 
@@ -109,9 +115,20 @@ server.get('/system-processing/edit-profile', function(req, resp){
         console.log(req.session.user);
           
         if (remember){
+            console.log("Remember Me");
             var hour = 3600000
             req.session.cookie.expires = new Date(Date.now() + hour)
             req.session.cookie.maxAge = 100 * hour
+            
+            console.log("Expires: " + req.session.cookie.expires);
+            console.log("Max Age: " + req.session.cookie.maxAge);
+            
+        }
+        else {
+            req.session.cookie.expires = false;
+            console.log("Do not remember Me");
+            console.log("Expires: " + req.session.cookie.expires);
+            console.log("Max Age: " + req.session.cookie.maxAge);
         }
           
           

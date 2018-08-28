@@ -7,10 +7,14 @@ var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
 function LoginModule(server){
   
   server.get('/', function(req, resp){
+  if (req.session.user === undefined){
     const data = { failedLogin:false }
     if(req.query.login !== undefined && req.query.login === 'failed')
       data.failedLogin = true;
     resp.render('./pages/login',{data:data});
+  }
+  else if (req.session.user != undefined)
+      resp.redirect('/home');
   });
 
     
@@ -109,6 +113,8 @@ server.get('/system-processing/edit-profile', function(req, resp){
             req.session.cookie.expires = new Date(Date.now() + hour)
             req.session.cookie.maxAge = 100 * hour
         }
+          
+          
           
         resp.redirect('/home');
       }
